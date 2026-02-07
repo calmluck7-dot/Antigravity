@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>報個くん (Houko-kun)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <style>
+    /* 印刷およびプレビュー用の強制スタイル */
+    .invoice-container {
+      background-color: white !important;
+      color: black !important;
+    }
+
+    .invoice-container * {
+      color: black !important;
+      border-color: black !important;
+    }
+
+    /* ダークモード時でもプレビュー内の背景色（slate-50/100）を明るい色に固定 */
+    .dark .invoice-container .bg-slate-50 {
+      background-color: #f8fafc !important;
+    }
+
+    .dark .invoice-container .bg-slate-100 {
+      background-color: #f1f5f9 !important;
+    }
+
+    @media print {
+
+      /* 全体を非表示にし、印刷対象のみを表示する強力なリセット */
+      body {
+        visibility: hidden !important;
+        height: auto !important;
+        overflow: visible !important;
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      /* 印刷対象のコンテナ */
+      .print-visible {
+        visibility: visible !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+        color: black !important;
+        z-index: 9999;
+      }
+
+      /* 印刷対象のその子要素も見えるようにする */
+      .print-visible * {
+        visibility: visible !important;
+      }
+
+      /* print-hiddenは確実に消す */
+      .print-hidden {
+        display: none !important;
+        visibility: hidden !important;
+      }
+
+      /* ダークモード強制ハック（印刷時は白背景・黒文字） */
+      .dark body,
+      .dark main,
+      .dark .invoice-container,
+      .dark .invoice-container * {
+        background-color: white !important;
+        color: black !important;
+        border-color: black !important;
+        box-shadow: none !important;
+      }
+
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+
+      .invoice-container {
+        width: 190mm !important;
+        margin: 0 auto !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+
+      /* 罫線などは黒く */
+      * {
+        border-color: #000 !important;
+        color: black !important;
+        box-shadow: none !important;
+      }
+    }
+
+    input,
+    select,
+    textarea {
+      font-size: 16px !important;
+      font-style: normal !important;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    * {
+      font-style: normal !important;
+    }
+
+    body {
+      font-size: 1.05rem;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Dark Mode Utility Overrides */
+    .dark body {
+      background-color: #0f172a;
+      color: #f1f5f9;
+    }
+
+    .dark .bg-white {
+      background-color: #1e293b;
+      border-color: #334155;
+    }
+
+    .dark .text-slate-800 {
+      color: #f1f5f9;
+    }
+
+    .dark .text-slate-600 {
+      color: #cbd5e1;
+    }
+
+    .dark .bg-slate-50 {
+      background-color: #0f172a;
+    }
+
+    .dark .bg-slate-100 {
+      background-color: #1e293b;
+    }
+
+    .dark .border-slate-200 {
+      border-color: #334155;
+    }
+
+    .dark input,
+    .dark select,
+    .dark textarea {
+      background-color: #1e293b;
+      color: #f1f5f9;
+      border-color: #334155;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 font-sans">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo } = React;
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBZsn34O1l0luB5_q3MdEOJgq6D3Yz1ecY",
+      authDomain: "deilvery-app.firebaseapp.com",
+      projectId: "deilvery-app",
+      storageBucket: "deilvery-app.firebasestorage.app",
+      messagingSenderId: "993281739992",
+      appId: "1:993281739992:web:53b2d87e75d95c90af1bad"
+    };
+
+    const TRANSLATIONS = {
+      ja: {
+        appTitle: "報個くん", login: "ログイン", loginId: "ログインID", password: "パスワード", logout: "ログアウト",
+        report: "個数報告", history: "報酬履歴", schedule: "スケジュール", offers: "オファー確認",
+        location: "拠点", pickedUp: "持ち出し", returned: "持ち戻り", delivered: "配達完了", remarks: "備考", submit: "まとめて報告する",
+        admin: "管理パネル", drivers: "ドライバー管理", drivers_long: "ドライバー管理", settings: "拠点・会社設定", print: "印刷 / PDF保存", addLoc: "＋ 別の拠点を追加",
+        delete: "削除", invoice: "支払明細書", items: "実績一覧", save: "保存", send: "配信", offer: "案件配信", allowance: "その他の請求額（税抜き）",
+        shift: "便数", nextPayment: "未入金額", status: "表示設定", bulkToggle: "表示の一括切替", selectDriver: "ドライバーを選択",
+        messages: "お知らせ配信", offDay: "非稼働日"
+      },
+      pt: {
+        appTitle: "Houko-kun", login: "Entrar", loginId: "ID Login", password: "Senha", logout: "Sair",
+        report: "Relatar Entrega", history: "Histórico", schedule: "Agenda", offers: "Ofertas",
+        location: "Local", pickedUp: "Saída", returned: "Retorno", delivered: "Concluído", remarks: "Obs", submit: "Enviar Relatório",
+        admin: "Painel Admin", drivers: "Motoristas", drivers_long: "Motoristas", settings: "Configurações", print: "Imprimir PDF", addLoc: "+ Adicionar Local",
+        delete: "Excluir", invoice: "Fatura de Pagamento", items: "Resultados", save: "Salvar", send: "Enviar", offer: "Oferta", allowance: "Outros Valores (s/ imposto)",
+        shift: "Turno", nextPayment: "Valor a Receber", status: "Status Visível", bulkToggle: "Alternar Tudo", selectDriver: "Selecionar Motorista",
+        messages: "Mensagens", offDay: "Dia de Folga"
+      }
+    };
+
+    const DAYS_JA = ["日", "月", "火", "水", "木", "金", "土"];
+
+    const formatDateWithDay = (dateStr, lang = 'ja') => {
+      if (!dateStr) return "";
+      const date = new Date(dateStr);
+      if (isNaN(date.getTime())) return dateStr;
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      const dayIdx = date.getDay();
+      const dayLabel = `(${DAYS_JA[dayIdx]})`;
+      return `${y}/${m}/${d} ${dayLabel}`;
+    };
+
+    // --- 基礎コンポーネント ---
+
+    const Icon = ({ name, className = "" }) => {
+      const icons = {
+        truck: "🚚", user: "👤", logout: "🚪", plus: "＋", trash: "🗑️",
+        back: "←", list: "📝", bell: "🔔", calendar: "📅", bag: "🛍️", check: "✅",
+        print: "🖨️", gear: "⚙️", edit: "✏️", money: "💰", up: "🔼", down: "🔽", eye: "👁️", eyeOff: "🙈", search: "🔍", message: "💬", moon: "🌙", sun: "☀️"
+      };
+      return <span className={`inline-block ${className}`}>{icons[name] || "•"}</span>;
+    };
+
+    const Card = ({ children, className = "", ...props }) => (
+      <div {...props} className={`bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 ${className}`}>{children}</div>
+    );
+
+    const Button = ({ onClick, children, variant = "primary", className = "", type = "button" }) => {
+      const variants = {
+        primary: "bg-orange-600 text-white shadow-md",
+        secondary: "bg-slate-700 text-white shadow-sm dark:bg-slate-600",
+        outline: "border-2 border-slate-200 text-slate-600 bg-white dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300",
+        danger: "bg-red-50 text-red-600 font-bold dark:bg-red-900/20 dark:text-red-400",
+        ghost: "text-slate-400 hover:text-red-500",
+        success: "bg-emerald-600 text-white",
+        info: "bg-sky-500 text-white shadow-md"
+      };
+      return (
+        <button type={type} onClick={onClick} className={`px-4 py-3 rounded-lg font-bold active:scale-95 transition-all flex items-center justify-center gap-2 ${variants[variant]} ${className}`}>
+          {children}
+        </button>
+      );
+    };
+
+    // --- 各種サブコンポーネント ---
+
+    function LoginView({ onLogin, t, setLang, lang }) {
+      const [id, setId] = useState('');
+      const [pw, setPw] = useState('');
+      return (
+        <div className="flex flex-col items-center justify-center pt-10 px-4 font-bold">
+          <Card className="w-full p-8 max-w-sm">
+            <h1 className="text-4xl font-black text-center mb-6 dark:text-white">📦 {t.appTitle}</h1>
+            <form onSubmit={(e) => { e.preventDefault(); onLogin(id, pw); }} className="space-y-4 font-bold">
+              <input type="text" placeholder={t.loginId} className="w-full p-4 border rounded-lg font-bold text-lg dark:bg-slate-700 dark:border-slate-600" onChange={e => setId(e.target.value)} />
+              <input type="password" placeholder={t.password} className="w-full p-4 border rounded-lg font-bold text-lg dark:bg-slate-700 dark:border-slate-600" onChange={e => setPw(e.target.value)} />
+              <Button type="submit" className="w-full py-4 text-xl">{t.login}</Button>
+              <div className="flex justify-center gap-4 text-sm pt-4 border-t border-slate-100 dark:border-slate-700 font-bold">
+                <button type="button" onClick={() => setLang('ja')} className={`px-3 py-1 rounded ${lang === 'ja' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}>日本語</button>
+                <button type="button" onClick={() => setLang('pt')} className={`px-3 py-1 rounded ${lang === 'pt' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}>Português</button>
+              </div>
+            </form>
+          </Card>
+        </div>
+      );
+    }
+
+    function EditRecordForm({ record, onSave, onCancel, onDelete, locations, t }) {
+      const [form, setForm] = useState({ ...record });
+      const delivered = (parseInt(form.pickedUp) || 0) - (parseInt(form.returned) || 0);
+      return (
+        <div className="space-y-4 p-5 bg-orange-50 dark:bg-orange-900/10 rounded-xl border-2 border-orange-200 dark:border-orange-800 font-bold text-slate-800 dark:text-slate-200">
+          <div className="grid grid-cols-2 gap-3 text-sm font-bold">
+            <div className="space-y-1"><label>日付</label><input type="date" className="w-full p-3 border rounded font-bold dark:bg-slate-800" value={form.date} onChange={e => setForm({ ...form, date: e.target.value })} /></div>
+            <div className="space-y-1"><label>拠点</label><select className="w-full p-3 border rounded font-bold dark:bg-slate-800" value={form.location} onChange={e => setForm({ ...form, location: e.target.value })}>{locations.map(l => <option key={l.id} value={l.name}>{l.name}</option>)}</select></div>
+          </div>
+          <div className="grid grid-cols-3 gap-3 text-sm font-bold">
+            <div className="space-y-1"><label>持ち出し</label><input type="number" className="w-full p-3 border rounded font-bold dark:bg-slate-800" value={form.pickedUp} onChange={e => setForm({ ...form, pickedUp: e.target.value })} /></div>
+            <div className="space-y-1"><label>持ち戻り</label><input type="number" className="w-full p-3 border rounded font-bold dark:bg-slate-800" value={form.returned} onChange={e => setForm({ ...form, returned: e.target.value })} /></div>
+            <div className="space-y-1"><label className="text-orange-600 font-bold">配完</label><div className="p-3 bg-white dark:bg-slate-700 border rounded text-center font-bold text-lg">{Math.max(0, delivered)}</div></div>
+          </div>
+          <div className="space-y-1 text-sm font-bold"><label>{t.allowance}</label><input type="number" className="w-full p-3 border rounded font-bold text-lg dark:bg-slate-800" value={form.allowance} onChange={e => setForm({ ...form, allowance: e.target.value })} /></div>
+          <div className="space-y-1 text-sm font-bold"><label>備考</label><input type="text" className="w-full p-3 border rounded font-bold text-lg bg-white dark:bg-slate-800" value={form.remarks} onChange={e => setForm({ ...form, remarks: e.target.value })} /></div>
+          <div className="flex gap-2 font-bold">
+            <Button onClick={() => { if (confirm("本当に削除しますか？")) onDelete(record.id); }} variant="danger" className="flex-1 py-3">削除</Button>
+            <Button onClick={onCancel} variant="outline" className="flex-1 py-3 text-slate-400">戻る</Button>
+            <Button onClick={() => onSave({ ...form, delivered: Math.max(0, delivered) })} variant="success" className="flex-2 py-3">保存</Button>
+          </div>
+        </div>
+      );
+    }
+
+    function EditOfferForm({ offer, onSave, onCancel, onDelete, locations, drivers }) {
+      const [form, setForm] = useState({ ...offer });
+      const filteredDrivers = useMemo(() => drivers.filter(d => !(d.offDays || []).includes(form.date) || d.id === offer.driverId), [drivers, form.date, offer.driverId]);
+      return (
+        <div className="space-y-4 p-5 bg-blue-50 dark:bg-blue-900/10 rounded-xl border-2 border-blue-200 dark:border-blue-800 font-bold">
+          <div className="grid grid-cols-2 gap-3 text-sm font-bold">
+            <div className="space-y-1"><label>日付</label><input type="date" className="w-full p-2 border rounded dark:bg-slate-800" value={form.date} onChange={e => setForm({ ...form, date: e.target.value })} /></div>
+            <div className="space-y-1"><label>拠点</label><select className="w-full p-2 border rounded dark:bg-slate-800" value={form.location} onChange={e => setForm({ ...form, location: e.target.value })}>{locations.map(l => <option key={l.id} value={l.name}>{l.name}</option>)}</select></div>
+          </div>
+          <div className="grid grid-cols-2 gap-3 text-sm font-bold">
+            <div className="space-y-1"><label>便数</label><select className="w-full p-2 border rounded dark:bg-slate-800" value={form.shift} onChange={e => setForm({ ...form, shift: e.target.value })}><option value="1便">1便</option><option value="2便">2便</option></select></div>
+            <div className="space-y-1"><label>個数目安</label><input type="number" className="w-full p-2 border rounded dark:bg-slate-800" value={form.count} onChange={e => setForm({ ...form, count: e.target.value })} /></div>
+          </div>
+          <div className="space-y-1 text-sm font-bold"><label>ドライバー (休みの方は表示されません)</label>
+            <select className="w-full p-2 border rounded dark:bg-slate-800" value={form.driverId || ""} onChange={e => {
+              const dr = drivers.find(d => d.id === e.target.value);
+              setForm({ ...form, driverId: e.target.value || null, driverName: dr ? dr.name : null, filled: !!e.target.value });
+            }}><option value="">-- 公募案件 --</option>{filteredDrivers.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}</select>
+          </div>
+          <div className="flex gap-2 font-bold pt-2">
+            <Button onClick={() => { if (confirm("この案件を削除しますか？")) onDelete(offer.id); }} variant="danger" className="flex-1 py-2">削除</Button>
+            <Button onClick={onCancel} variant="outline" className="flex-1 py-2">戻る</Button>
+            <Button onClick={() => onSave(form)} variant="success" className="flex-2 py-2">更新</Button>
+          </div>
+        </div>
+      );
+    }
+
+    // --- メインアプリ ---
+
+    function App() {
+      const [db, setDb] = useState(null);
+      const [view, setView] = useState('login');
+      const [lang, setLang] = useState('ja');
+      const [currentUser, setCurrentUser] = useState(null);
+      const [data, setData] = useState({ drivers: [], records: [], locations: [], offers: [], messages: [], company: {} });
+      const [loading, setLoading] = useState(true);
+      const [darkMode, setDarkMode] = useState(() => localStorage.getItem('houko_theme') === 'dark');
+
+      const t = TRANSLATIONS[lang];
+
+      useEffect(() => {
+        if (darkMode) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        localStorage.setItem('houko_theme', darkMode ? 'dark' : 'light');
+      }, [darkMode]);
+
+      useEffect(() => {
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        const firestore = firebase.firestore();
+        setDb(firestore);
+
+        const unsubs = [
+          firestore.collection('drivers').onSnapshot(s => {
+            const list = s.docs.map(d => ({ id: d.id, ...d.data() }));
+            const sortedDrivers = list.sort((a, b) => (a.order || 0) - (b.order || 0));
+            setData(prev => ({ ...prev, drivers: sortedDrivers }));
+            const saved = localStorage.getItem('houko_user');
+            if (saved) {
+              const parsed = JSON.parse(saved);
+              if (parsed.isAdmin) { setCurrentUser({ name: '管理者', isAdmin: true }); setView('admin'); }
+              else { const found = sortedDrivers.find(d => d.id === parsed.id); if (found) { setCurrentUser(found); setView('driver'); } }
+            }
+          }),
+          firestore.collection('records').orderBy('date', 'desc').onSnapshot(s => setData(prev => ({ ...prev, records: s.docs.map(d => ({ id: d.id, ...d.data() })) }))),
+          firestore.collection('locations').onSnapshot(s => {
+            const list = s.docs.map(d => ({ id: d.id, ...d.data() }));
+            setData(prev => ({ ...prev, locations: list.sort((a, b) => (a.order || 0) - (b.order || 0)) }));
+          }),
+          firestore.collection('offers').onSnapshot(s => {
+            const list = s.docs.map(d => ({ id: d.id, ...d.data() }));
+            list.sort((a, b) => (a.date || "").localeCompare(b.date || "") || (a.shift || "1便").localeCompare(b.shift || "1便"));
+            setData(prev => ({ ...prev, offers: list }));
+          }),
+          firestore.collection('messages').orderBy('createdAt', 'desc').onSnapshot(s => setData(prev => ({ ...prev, messages: s.docs.map(d => ({ id: d.id, ...d.data() })) }))),
+          firestore.collection('settings').doc('company').onSnapshot(d => setData(prev => ({ ...prev, company: d.data() || {} })))
+        ];
+        setLoading(false);
+        return () => unsubs.forEach(f => f());
+      }, []);
+
+      const handleLogin = (id, pass) => {
+        if (id === 'admin' && pass === 'admin') {
+          setCurrentUser({ name: '管理者', isAdmin: true }); setView('admin');
+          localStorage.setItem('houko_user', JSON.stringify({ isAdmin: true }));
+        } else {
+          const drv = data.drivers.find(d => d.loginId === id && d.password === pass);
+          if (drv) {
+            setCurrentUser(drv); setView('driver');
+            localStorage.setItem('houko_user', JSON.stringify({ id: drv.id, isAdmin: false }));
+          } else alert("IDかパスワードが違います");
+        }
+      };
+
+      const handleLogout = () => {
+        localStorage.removeItem('houko_user');
+        setCurrentUser(null);
+        setView('login');
+      };
+
+      if (loading || !db) return <div className="h-screen flex items-center justify-center font-bold dark:bg-slate-900 dark:text-white">Loading...</div>;
+
+      return (
+        <div className="min-h-screen dark:bg-slate-900">
+          {view !== 'login' && (
+            <header className="bg-slate-800 dark:bg-slate-950 text-white p-4 sticky top-0 z-50 flex justify-between items-center print-hidden font-bold">
+              <div className="font-black text-lg flex items-center gap-2 cursor-pointer" onClick={() => setView(currentUser.isAdmin ? 'admin' : 'driver')}>
+                <Icon name="truck" /> {t.appTitle}
+              </div>
+              <div className="flex items-center gap-2">
+                <Button onClick={() => setDarkMode(!darkMode)} variant="outline" className="py-2 px-3 border-slate-600 text-white bg-transparent">
+                  <Icon name={darkMode ? "sun" : "moon"} />
+                </Button>
+                <Button onClick={handleLogout} variant="outline" className="py-2 px-3 border-slate-600 text-white bg-transparent"><Icon name="logout" /></Button>
+              </div>
+            </header>
+          )}
+          <main className={`${view === 'admin' ? 'max-w-4xl' : 'max-w-xl'} mx-auto p-4 pb-20`}>
+            {view === 'login' && <LoginView onLogin={handleLogin} t={t} setLang={setLang} lang={lang} />}
+            {view === 'driver' && <DriverPortal db={db} user={data.drivers.find(d => d.id === currentUser?.id) || currentUser} data={data} t={t} lang={lang} />}
+            {view === 'admin' && <AdminDashboard db={db} data={data} t={t} lang={lang} />}
+          </main>
+        </div>
+      );
+    }
+
+    // --- ドライバー画面 ---
+
+    function DriverPortal({ db, user, data, t, lang }) {
+      const [mode, setMode] = useState('menu');
+      const [reportDate, setReportDate] = useState(new Date().toISOString().split('T')[0]);
+      const [items, setItems] = useState([{ id: Date.now(), location: '', pickedUp: '', returned: '', allowance: '', remarks: '' }]);
+      const [editingId, setEditingId] = useState(null);
+      const [calSelectedDate, setCalSelectedDate] = useState(null);
+
+      const todayStr = new Date().toISOString().split('T')[0];
+      const visibleRecs = useMemo(() => data.records.filter(r => r.driverId === user.id && r.status !== 'hidden'), [data.records, user.id]);
+      const myUpcomingOffers = useMemo(() => data.offers.filter(o => o.driverId === user.id && o.filled && o.date >= todayStr), [data.offers, user.id, todayStr]);
+      const myOffDays = user.offDays || [];
+
+      const totalEarnings = useMemo(() => {
+        const sub = visibleRecs.reduce((s, r) => s + (r.delivered * r.unitPrice) + (parseInt(r.allowance) || 0), 0);
+        return Math.floor(sub * 1.1);
+      }, [visibleRecs]);
+
+      const toggleOffDay = async (dateStr) => {
+        const newDays = myOffDays.includes(dateStr) ? myOffDays.filter(d => d !== dateStr) : [...myOffDays, dateStr];
+        await db.collection('drivers').doc(user.id).update({ offDays: newDays });
+      };
+
+      const submitReport = async () => {
+        const validItems = items.filter(i => i.location || (parseInt(i.allowance) > 0));
+        if (validItems.length === 0) return alert("内容を入力してください");
+        const batch = db.batch();
+        validItems.forEach(item => {
+          const delivered = (parseInt(item.pickedUp) || 0) - (parseInt(item.returned) || 0);
+          const ref = db.collection('records').doc();
+          batch.set(ref, {
+            date: reportDate, location: item.location || "手当のみ報告",
+            pickedUp: parseInt(item.pickedUp) || 0, returned: parseInt(item.returned) || 0,
+            delivered: Math.max(0, delivered), allowance: parseInt(item.allowance) || 0,
+            remarks: item.remarks.trim() || "インセンティブ",
+            driverId: user.id, driverName: user.name, unitPrice: user.unitPrice || 0, status: 'visible',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        });
+        await batch.commit();
+        alert("送信完了！");
+        setMode('menu');
+        setItems([{ id: Date.now(), location: '', pickedUp: '', returned: '', allowance: '', remarks: '' }]);
+      };
+
+      if (mode === 'report') {
+        return (
+          <div className="space-y-5 font-bold">
+            <Button onClick={() => setMode('menu')} variant="outline" className="w-full text-lg">メニューに戻る</Button>
+            <div className="flex items-center gap-2 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 font-bold">
+              <input type="date" className="p-2 border rounded-xl font-black bg-white dark:bg-slate-700 text-xl w-[160px] h-[48px] dark:text-white" value={reportDate} onChange={e => setReportDate(e.target.value)} />
+              <div className="text-xl text-slate-800 dark:text-white font-black whitespace-nowrap ml-1 h-[48px] flex items-center font-bold">{formatDateWithDay(reportDate, lang).split(' ')[1]}</div>
+            </div>
+            {items.map((item, idx) => (
+              <Card key={item.id} className="p-6 space-y-5 border-l-8 border-orange-500 font-bold">
+                <div className="flex justify-between items-center"><span className="bg-slate-800 text-white text-xs px-3 py-1 rounded-full uppercase font-bold">Record #{idx + 1}</span>{items.length > 1 && <button onClick={() => setItems(items.filter(i => i.id !== item.id))} className="text-red-400 text-base font-bold">削除</button>}</div>
+                <select className="w-full p-4 border rounded-xl font-bold text-lg dark:bg-slate-700 dark:text-white" value={item.location} onChange={e => setItems(items.map(i => i.id === item.id ? { ...i, location: e.target.value } : i))}><option value="">拠点を選択</option>{data.locations.map(l => <option key={l.id} value={l.name}>{l.name}</option>)}</select>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1"><label className="text-xs text-slate-400 font-bold">持ち出し</label><input type="number" inputMode="numeric" className="w-full p-4 border rounded-xl font-bold text-xl dark:bg-slate-700 dark:text-white" value={item.pickedUp} onChange={e => setItems(items.map(i => i.id === item.id ? { ...i, pickedUp: e.target.value } : i))} /></div>
+                  <div className="space-y-1"><label className="text-xs text-slate-400 font-bold">持ち戻り</label><input type="number" inputMode="numeric" className="w-full p-4 border rounded-xl font-bold text-xl dark:bg-slate-700 dark:text-white" value={item.returned} onChange={e => setItems(items.map(i => i.id === item.id ? { ...i, returned: e.target.value } : i))} /></div>
+                </div>
+                <div className="flex justify-between bg-orange-50 dark:bg-orange-950/30 p-4 rounded-xl px-5 font-black text-lg font-bold"><span>配達完了</span><span className="text-3xl text-orange-600">{(parseInt(item.pickedUp) || 0) - (parseInt(item.returned) || 0)}</span></div>
+                <div className="space-y-1"><label className="text-xs text-slate-400 font-bold">{t.allowance}</label><input type="number" inputMode="numeric" className="w-full p-4 border rounded-xl font-bold bg-orange-50/20 dark:bg-orange-950/10 text-xl dark:text-white" value={item.allowance} onChange={e => setItems(items.map(i => i.id === item.id ? { ...i, allowance: e.target.value } : i))} /></div>
+                <div className="space-y-1"><label className="text-xs text-slate-400 font-bold">備考欄</label><input type="text" placeholder="未記入は『インセンティブ』になります" className="w-full p-4 border rounded-xl font-bold bg-white dark:bg-slate-700 dark:text-white text-lg" value={item.remarks} onChange={e => setItems(items.map(i => i.id === item.id ? { ...i, remarks: e.target.value } : i))} /></div>
+              </Card>
+            ))}
+            <Button onClick={() => setItems([...items, { id: Date.now(), location: '', pickedUp: '', returned: '', allowance: '', remarks: '' }])} variant="outline" className="w-full border-dashed py-4 text-lg font-bold">+ 追加</Button>
+            <Button onClick={submitReport} className="w-full py-6 text-2xl font-bold">報告を送信する</Button>
+          </div>
+        );
+      }
+
+      if (mode === 'schedule') {
+        const renderMonth = (year, month) => {
+          const daysInMonth = new Date(year, month + 1, 0).getDate();
+          const startDay = new Date(year, month, 1).getDay();
+          return (
+            <Card key={`${year}-${month}`} className="p-5 font-bold mb-8">
+              <h3 className="font-black text-center mb-6 text-slate-400 dark:text-slate-500 text-xl uppercase tracking-widest">{year} / {month + 1}</h3>
+              <div className="calendar-grid mb-2">{DAYS_JA.map((d, i) => (<div key={i} className={`text-center text-xs font-black py-2 ${i === 0 ? 'text-red-400' : i === 6 ? 'text-blue-400' : 'text-slate-400'}`}>{d}</div>))}</div>
+              <div className="calendar-grid font-bold">
+                {Array.from({ length: startDay }).map((_, i) => <div key={`empty-${i}`}></div>)}
+                {Array.from({ length: daysInMonth }, (_, i) => {
+                  const d = i + 1; const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                  const myDayOffers = myUpcomingOffers.filter(o => o.date === dateStr);
+                  const isOff = myOffDays.includes(dateStr);
+                  return (
+                    <div key={i} onClick={() => setCalSelectedDate({ date: dateStr, offers: myDayOffers })} className={`h-14 flex flex-col items-center justify-center border rounded-lg text-sm cursor-pointer relative transition-all dark:border-slate-700 ${myDayOffers.length > 0 ? 'bg-orange-500 text-white font-black' : isOff ? 'bg-sky-100 dark:bg-sky-900/30 border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-400' : dateStr === todayStr ? 'border-orange-500 text-orange-600' : 'text-slate-300 font-bold dark:text-slate-600'}`}>
+                      {d}{myDayOffers.length > 1 && <span className="absolute top-1 right-1 text-[9px] opacity-70">x{myDayOffers.length}</span>}{isOff && <span className="absolute bottom-0.5 text-[8px] opacity-60">休み</span>}
+                    </div>
+                  );
+                })}
+              </div>
+            </Card>
+          );
+        };
+
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth();
+        const nextDate = new Date(currentYear, currentMonth + 1, 1);
+        const nextYear = nextDate.getFullYear();
+        const nextMonth = nextDate.getMonth();
+
+        return (
+          <div className="space-y-5 font-bold">
+            <Button onClick={() => setMode('menu')} variant="outline" className="w-full text-lg">戻る</Button>
+            {renderMonth(currentYear, currentMonth)}
+            {renderMonth(nextYear, nextMonth)}
+
+            {calSelectedDate && (
+              <div className="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4" onClick={() => setCalSelectedDate(null)}>
+                <Card className="w-full max-w-sm p-6 space-y-5 shadow-2xl" onClick={e => e.stopPropagation()}>
+                  <h4 className="font-black text-2xl border-b pb-3 font-bold dark:text-white">{formatDateWithDay(calSelectedDate.date, lang)}</h4>
+                  {calSelectedDate.offers.length > 0 ? (
+                    <div className="space-y-3">{calSelectedDate.offers.map(o => (
+                      <div key={o.id} className="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl border border-slate-100 dark:border-slate-600 font-bold">
+                        <div className="font-bold text-orange-600 flex justify-between text-lg"><span>{o.location}</span><span className="bg-orange-600 text-white px-3 py-1 rounded text-xs font-bold">{o.shift}</span></div>
+                        <div className="text-slate-500 dark:text-slate-400 text-sm font-black mt-2">個数目安: {o.count || '未定'}個</div>
+                        {((new Date(o.date) - new Date(todayStr)) / 86400000 >= 2) && <Button onClick={async () => { if (confirm("キャンセルしますか？")) { await db.collection('offers').doc(o.id).update({ filled: false, driverId: null, driverName: null }); setCalSelectedDate(null); alert("キャンセルしました"); } }} variant="danger" className="w-full mt-3 py-2">キャンセルする</Button>}
+                      </div>
+                    ))}</div>
+                  ) : (
+                    <div className="py-4 space-y-4 font-bold">
+                      <p className="text-center text-slate-500 dark:text-slate-400 font-bold">予定はありません</p>
+                      <Button onClick={() => { toggleOffDay(calSelectedDate.date); setCalSelectedDate(null); }} variant={myOffDays.includes(calSelectedDate.date) ? "outline" : "info"} className="w-full py-4 text-lg"><Icon name="moon" /> {myOffDays.includes(calSelectedDate.date) ? "非稼働日を解除" : "この日を非稼働日に設定"}</Button>
+                    </div>
+                  )}
+                  <Button onClick={() => setCalSelectedDate(null)} variant="secondary" className="w-full font-bold py-3 text-lg font-bold">閉じる</Button>
+                </Card>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      if (mode === 'history') {
+        return (
+          <div className="space-y-5 font-bold text-slate-800 dark:text-white">
+            <Button onClick={() => setMode('menu')} variant="outline" className="w-full text-lg">戻る</Button>
+            <div className="bg-slate-800 dark:bg-slate-950 text-white p-7 rounded-2xl shadow-lg flex flex-col items-center">
+              <span className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2 font-bold">{t.nextPayment}</span>
+              <span className="text-5xl font-black text-orange-400 italic font-bold">¥ {totalEarnings.toLocaleString()} <span className="text-sm text-white font-bold">（税込）</span></span>
+            </div>
+            {visibleRecs.map(r => (
+              <div key={r.id}>{editingId === r.id ? <EditRecordForm record={r} locations={data.locations} onCancel={() => setEditingId(null)} onSave={async u => { await db.collection('records').doc(u.id).update(u); setEditingId(null); }} onDelete={async id => { await db.collection('records').doc(id).delete(); setEditingId(null); }} t={t} /> :
+                <Card className="p-5 flex justify-between items-center border-l-4 border-slate-400 dark:border-slate-600 font-bold">
+                  <div><div className="font-black text-slate-800 dark:text-white text-lg mb-1 font-bold">{formatDateWithDay(r.date, lang)}</div><div className="text-xs text-slate-400 uppercase font-bold">{r.location} (配完:{r.delivered} / その他:¥{r.allowance || 0})</div>{(r.remarks && r.remarks !== 'インセンティブ') && <div className="text-[10px] text-slate-400 italic font-bold">{r.remarks}</div>}</div>
+                  <div className="flex items-center gap-4"><div className="text-orange-600 font-black text-2xl tracking-tighter font-bold">¥{((r.delivered * r.unitPrice) + (r.allowance || 0)).toLocaleString()}</div><button onClick={() => setEditingId(r.id)} className="p-3 text-slate-300 hover:text-orange-500 transition"><Icon name="edit" className="text-xl" /></button></div>
+                </Card>
+              }</div>
+            ))}
+          </div>
+        );
+      }
+
+      if (mode === 'offers') {
+        const available = data.offers.filter(o => !o.filled && o.date >= todayStr);
+        return (
+          <div className="space-y-5 font-bold">
+            <Button onClick={() => setMode('menu')} variant="outline" className="w-full text-lg font-bold">戻る</Button>
+            {available.length === 0 ? <div className="text-center py-24 text-slate-300 font-black tracking-widest uppercase dark:text-slate-600">No Active Offers</div> : available.map(o => (
+              <Card key={o.id} className="p-6 space-y-4 border-t-8 border-blue-500 shadow-md font-bold text-slate-800 dark:text-white">
+                <div className="flex justify-between items-center font-bold font-black"><span className="font-black text-2xl">{formatDateWithDay(o.date, lang)}</span><span className="bg-blue-600 text-white px-4 py-1 rounded-full text-xs font-black uppercase font-bold">{o.shift}</span></div>
+                <div className="text-slate-600 dark:text-slate-400 tracking-tighter font-black text-lg font-bold">拠点: {o.location} / 目安: {o.count || '未定'}個</div>
+                {myOffDays.includes(o.date) && <div className="bg-sky-50 dark:bg-sky-900/20 p-2 text-sky-600 dark:text-sky-400 text-xs rounded text-center font-bold">この日は非稼働日に設定されています</div>}
+                <Button onClick={async () => { if (myOffDays.includes(o.date)) return alert("非稼働日の為、受諾できません。"); if (confirm("受諾しますか？")) { await db.collection('offers').doc(o.id).update({ filled: true, driverName: user.name, driverId: user.id }); alert("受諾しました！"); } }} className={`w-full text-2xl py-5 font-bold font-black ${myOffDays.includes(o.date) ? 'bg-slate-300 grayscale cursor-not-allowed' : 'bg-blue-600'}`}>受諾する</Button>
+              </Card>
+            ))
+            }
+          </div>
+        );
+      }
+
+      return (
+        <div className="space-y-5 font-bold">
+          <div className="bg-orange-50 dark:bg-orange-900/10 p-6 rounded-2xl border border-orange-100 dark:border-orange-900/30 flex justify-between items-center shadow-sm font-bold">
+            <div><span className="text-xs font-black text-orange-400 block tracking-widest uppercase font-bold">Driver</span><span className="font-black text-2xl text-slate-800 dark:text-white font-bold">{user.name} 様</span></div>
+            <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-full flex items-center justify-center text-3xl shadow-inner font-bold text-slate-800">👤</div>
+          </div>
+          {data.messages.length > 0 && <div className="bg-yellow-50 dark:bg-yellow-900/20 p-5 rounded-xl border-l-4 border-yellow-400 shadow-sm font-bold"><div className="font-black text-yellow-800 dark:text-yellow-400 mb-2 flex items-center gap-2 text-lg font-bold font-black"><Icon name="bell" /> Important</div><div className="text-base text-yellow-900 dark:text-yellow-200 whitespace-pre-wrap leading-relaxed font-bold">{data.messages[0].text}</div></div>}
+          <div className="grid gap-5 font-bold">
+            <Button onClick={() => setMode('report')} className="h-32 text-3xl font-black font-black"><Icon name="list" className="text-4xl" /> {t.report}</Button>
+            <div className="grid grid-cols-2 gap-5 font-bold"><Button onClick={() => setMode('schedule')} variant="secondary" className="h-28 flex-col text-lg font-black font-black font-bold"><Icon name="calendar" className="text-3xl" /> {t.schedule}</Button><Button onClick={() => setMode('offers')} variant="outline" className="h-28 flex-col border-slate-200 text-lg font-black font-black font-bold"><Icon name="bag" className="text-3xl" /> {t.offers}</Button></div>
+            <Button onClick={() => setMode('history')} variant="outline" className="h-24 border-slate-200 text-xl font-black font-black font-bold"><Icon name="check" className="text-2xl" /> {t.history}</Button>
+          </div>
+        </div>
+      );
+    }
+
+    // --- 管理画面 ---
+
+    function AdminDashboard({ db, data, t, lang }) {
+      const [tab, setTab] = useState('items');
+      const [range, setRange] = useState({ start: new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0], end: new Date().toISOString().split('T')[0] });
+      const [selDriver, setSelDriver] = useState('');
+      const [filterDriverId, setFilterDriverId] = useState('');
+      const [editingRecId, setEditingRecId] = useState(null);
+      const [editingDriver, setEditingDriver] = useState(null);
+      const [editingLocation, setEditingLocation] = useState(null);
+      const [editingOfferId, setEditingOfferId] = useState(null);
+      const [offerType, setOfferType] = useState('open');
+      const [calFilterDriver, setCalFilterDriver] = useState('');
+      const [msgText, setMsgText] = useState('');
+      const [offerDate, setOfferDate] = useState('');
+      const [calSelectedDate, setCalSelectedDate] = useState(null);
+
+      // デフォルトで今月を表示(true)、翌月を閉じ(false)に設定
+      const [calVis, setCalVis] = useState({ current: true, next: false });
+
+      const todayStr = new Date().toISOString().split('T')[0];
+      const locOrderMap = useMemo(() => { const m = {}; data.locations.forEach(l => { m[l.name] = l.order || 0; }); return m; }, [data.locations]);
+      const availableDriversForDirect = useMemo(() => offerDate ? data.drivers.filter(d => !(d.offDays || []).includes(offerDate)) : data.drivers, [data.drivers, offerDate]);
+      const groupedOffers = useMemo(() => {
+        const groups = {};
+        const active = data.offers.filter(o => o.date >= todayStr).sort((a, b) => (a.date || "").localeCompare(b.date || "") || (locOrderMap[a.location] || 0) - (locOrderMap[b.location] || 0) || (a.shift || "").localeCompare(b.shift || ""));
+        active.forEach(o => { if (!groups[o.date]) groups[o.date] = []; groups[o.date].push(o); });
+        return groups;
+      }, [data.offers, todayStr, locOrderMap]);
+
+      const filteredRecs = useMemo(() => {
+        let list = data.records.filter(r => r.date >= range.start && r.date <= range.end);
+        if (filterDriverId) list = list.filter(r => r.driverId === filterDriverId);
+        return list;
+      }, [data.records, range, filterDriverId]);
+
+      const tableTotals = useMemo(() => {
+        const d = filteredRecs.reduce((s, r) => s + (r.delivered || 0), 0);
+        const a = filteredRecs.reduce((s, r) => s + (parseInt(r.allowance) || 0), 0);
+        const sub = filteredRecs.reduce((s, r) => s + (r.delivered * r.unitPrice) + (parseInt(r.allowance) || 0), 0);
+        return { delivered: d, allowance: a, subtotal: sub, grandTotal: sub + Math.floor(sub * 0.1) };
+      }, [filteredRecs]);
+
+      const invoiceData = useMemo(() => {
+        if (!selDriver) return { rows: [], total: 0 };
+        const drRecs = data.records.filter(r => r.driverId === selDriver && r.date >= range.start && r.date <= range.end);
+        const rows = [];
+        Array.from(new Set(drRecs.map(r => r.date))).sort().forEach(dStr => {
+          const dateRecs = drRecs.filter(r => r.date === dStr);
+          const rewardTotal = dateRecs.reduce((s, r) => s + (r.delivered || 0), 0);
+          if (rewardTotal > 0) rows.push({ date: dStr, label: "配送報酬（日次集計）", count: rewardTotal, unitPrice: dateRecs[0]?.unitPrice || 0, subtotal: rewardTotal * (dateRecs[0]?.unitPrice || 0) });
+          dateRecs.forEach(r => {
+            if (parseInt(r.allowance) > 0) {
+              const locPart = r.location === "手当のみ報告" ? "" : r.location;
+              const combinedLabel = locPart ? `${locPart}：${r.remarks || "インセンティブ"}` : (r.remarks || "インセンティブ");
+              rows.push({
+                date: dStr,
+                isAllowance: true,
+                combinedLabel: combinedLabel,
+                count: "",
+                unitPrice: parseInt(r.allowance),
+                subtotal: parseInt(r.allowance)
+              });
+            }
+          });
+        });
+        const sub = rows.reduce((s, row) => s + row.subtotal, 0);
+        return { rows, subtotal: sub, tax: Math.floor(sub * 0.1), grandTotal: sub + Math.floor(sub * 0.1) };
+      }, [selDriver, data.records, range]);
+
+      const handleCreateOffer = async (e) => {
+        e.preventDefault();
+        const f = new FormData(e.currentTarget);
+        const drId = f.get('dri');
+        const dr = data.drivers.find(d => d.id === drId);
+        const offerData = {
+          date: f.get('d'), location: f.get('l'), shift: f.get('s') || "1便",
+          count: f.get('c') || "", filled: offerType === 'direct',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        if (offerType === 'direct') { offerData.driverId = drId; offerData.driverName = dr?.name || ""; }
+        try { await db.collection('offers').add(offerData); e.target.reset(); setOfferDate(''); alert("配信完了！"); } catch (err) { alert("送信エラー"); }
+      };
+
+      const MasterScheduleView = () => {
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth();
+        const nextDate = new Date(currentYear, currentMonth + 1, 1);
+        const nextYear = nextDate.getFullYear();
+        const nextMonth = nextDate.getMonth();
+
+        const filteredOffers = calFilterDriver ? data.offers.filter(o => o.filled && o.driverId === calFilterDriver) : data.offers.filter(o => o.filled);
+
+        const renderAdminMonth = (y, m, visKey) => {
+          const daysInMonth = new Date(y, m + 1, 0).getDate();
+          const startDay = new Date(y, m, 1).getDay();
+          const isVisible = calVis[visKey];
+
+          return (
+            <Card key={`${y}-${m}`} className="font-bold mb-8 overflow-hidden">
+              <h3
+                className="font-black text-center p-5 bg-slate-50 dark:bg-slate-800 text-slate-400 dark:text-slate-500 text-xl uppercase tracking-widest cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-all flex justify-center items-center gap-2"
+                onClick={() => setCalVis({ ...calVis, [visKey]: !isVisible })}
+              >
+                {y} / {m + 1}
+                <Icon name={isVisible ? "up" : "down"} className="text-xs" />
+              </h3>
+              {isVisible && (
+                <div className="p-5">
+                  <div className="calendar-grid mb-2 font-bold">{DAYS_JA.map((d, i) => (<div key={i} className={`text-center text-xs font-black py-2 font-bold ${i === 0 ? 'text-red-400' : i === 6 ? 'text-blue-400' : 'text-slate-400'}`}>{d}</div>))}</div>
+                  <div className="calendar-grid font-bold">
+                    {Array.from({ length: startDay }).map((_, i) => <div key={`empty-${i}`}></div>)}
+                    {Array.from({ length: daysInMonth }, (_, i) => {
+                      const d = i + 1; const dateStr = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                      const dayOffers = filteredOffers.filter(o => o.date === dateStr);
+                      const offCount = data.drivers.filter(drv => (drv.offDays || []).includes(dateStr)).length;
+                      return (
+                        <div key={i} onClick={() => setCalSelectedDate({ date: dateStr, offers: dayOffers })} className={`h-16 border rounded-lg p-2 cursor-pointer flex flex-col items-center justify-between font-bold dark:border-slate-700 ${dayOffers.length > 0 ? 'bg-orange-50 dark:bg-orange-900/10 border-orange-200 dark:border-orange-900/30' : ''}`}>
+                          <span className={`text-xs font-bold ${new Date(dateStr).getDay() === 0 ? 'text-red-400' : new Date(dateStr).getDay() === 6 ? 'text-blue-400' : 'text-slate-400'}`}>{d}</span>
+                          <div className="flex flex-col items-center gap-0.5 font-bold">{dayOffers.length > 0 && <span className="bg-orange-600 text-white text-[8px] px-1.5 rounded-full font-bold">×{dayOffers.length}</span>}{offCount > 0 && <span className="bg-sky-500 text-white text-[8px] px-1.5 rounded-full font-black font-bold">休{offCount}</span>}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </Card>
+          );
+        };
+
+        return (
+          <div className="space-y-5 font-bold">
+            <Card className="p-5 bg-slate-800 dark:bg-slate-950 text-white flex flex-wrap items-center justify-between gap-5 font-bold">
+              <h3 className="text-xl font-bold font-black">全予定カレンダー</h3>
+              <div className="bg-slate-700 dark:bg-slate-800 p-3 rounded-lg flex items-center gap-3">
+                <Icon name="search" className="text-slate-400" />
+                <select className="bg-transparent text-white focus:ring-0 text-sm font-bold" value={calFilterDriver} onChange={e => setCalFilterDriver(e.target.value)}>
+                  <option value="" className="text-slate-800">全員を表示</option>
+                  {data.drivers.map(d => <option key={d.id} value={d.id} className="text-slate-800">{d.name}</option>)}
+                </select>
+              </div>
+            </Card>
+
+            {renderAdminMonth(currentYear, currentMonth, 'current')}
+            {renderAdminMonth(nextYear, nextMonth, 'next')}
+
+            {calSelectedDate && (
+              <Card className="p-6 border-l-8 border-orange-500 shadow-lg relative font-bold">
+                <button onClick={() => setCalSelectedDate(null)} className="absolute right-4 top-4 text-slate-300 text-2xl font-bold font-black">×</button>
+                <h4 className="font-black text-xl mb-4 font-bold dark:text-white">{formatDateWithDay(calSelectedDate.date, lang)}</h4>
+                <div className="space-y-6 font-bold">
+                  <div>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 font-bold font-black">確定案件</p>
+                    {calSelectedDate.offers.length === 0 ? <p className="text-sm text-slate-300 italic font-bold">なし</p> : calSelectedDate.offers.map(o => (
+                      <div key={o.id} className="bg-slate-50 dark:bg-slate-700 p-3 rounded-lg flex justify-between items-center mb-1 text-sm font-bold">
+                        <span className="font-black font-bold dark:text-white">{o.driverName} (@{o.location} {o.shift})</span>
+                        <button onClick={async () => { if (confirm("解除しますか？")) await db.collection('offers').doc(o.id).update({ filled: false, driverId: null, driverName: null }); }} className="text-red-400 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded font-bold">解除</button>
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <p className="text-xs text-sky-400 uppercase tracking-widest mb-2 font-bold font-black">非稼働設定中</p>
+                    <div className="flex flex-wrap gap-2 font-bold">
+                      {data.drivers.filter(d => (d.offDays || []).includes(calSelectedDate.date)).length === 0 ? <p className="text-sm text-slate-300 italic font-bold">なし</p> : data.drivers.filter(d => (d.offDays || []).includes(calSelectedDate.date)).map(d => (
+                        <span key={d.id} className="bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-400 px-3 py-1 rounded-full text-xs font-bold">{d.name}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            )}
+          </div>
+        );
+      };
+
+      return (
+        <div className="space-y-5 font-bold">
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide font-bold print-hidden">
+            {['items', 'invoice', 'schedule', 'offer', 'messages', 'drivers', 'settings'].map(key => (<Button key={key} onClick={() => setTab(key)} variant={tab === key ? 'secondary' : 'outline'} className="whitespace-nowrap py-2 px-5 text-sm font-black uppercase tracking-tighter font-bold">{t[key] || key}</Button>))}
+          </div>
+
+          {tab === 'items' && (
+            <Card className="overflow-hidden font-bold">
+              <div className="p-5 bg-slate-100 dark:bg-slate-950 flex flex-wrap gap-4 font-bold">
+                <div className="flex gap-2"><input type="date" value={range.start} onChange={e => setRange({ ...range, start: e.target.value })} className="p-3 border rounded text-lg font-bold dark:bg-slate-800" /><input type="date" value={range.end} onChange={e => setRange({ ...range, end: e.target.value })} className="p-3 border rounded text-lg font-bold dark:bg-slate-800" /></div>
+                <select value={filterDriverId} onChange={e => setFilterDriverId(e.target.value)} className="p-3 border rounded text-lg min-w-[200px] font-bold dark:bg-slate-800"><option value="">全ドライバー</option>{data.drivers.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}</select>
+              </div>
+              {filterDriverId && <div className="px-5 pb-5 flex gap-3 font-bold"><Button onClick={async () => { if (confirm("全表示に変更しますか？")) { const batch = db.batch(); filteredRecs.forEach(r => batch.update(db.collection('records').doc(r.id), { status: 'visible' })); await batch.commit(); } }} variant="success" className="py-2 px-4 text-sm font-black font-bold"><Icon name="eye" /> 全表示</Button><Button onClick={async () => { if (confirm("全非表示に変更しますか？")) { const batch = db.batch(); filteredRecs.forEach(r => batch.update(db.collection('records').doc(r.id), { status: 'hidden' })); await batch.commit(); } }} variant="outline" className="py-2 px-4 text-sm font-black font-bold"><Icon name="eyeOff" /> 全非表示</Button></div>}
+              <div className="overflow-x-auto font-bold"><table className="w-full text-sm font-bold text-slate-800 dark:text-slate-200"><thead className="bg-slate-800 dark:bg-slate-950 text-white font-bold"><tr><th className="p-4 text-left font-bold">日付</th><th className="p-4 text-left font-bold">ドライバー</th><th className="p-4 text-left font-bold">拠点</th><th className="p-4 text-right font-bold">配完</th><th className="p-4 text-right font-bold">その他</th><th className="p-4 text-right font-bold">合計</th><th className="p-4 text-center font-bold">表示</th><th className="p-4"></th></tr></thead>
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-700 font-bold">{filteredRecs.map(r => (<React.Fragment key={r.id}>{editingRecId === r.id ? <tr><td colSpan="8"><EditRecordForm record={r} locations={data.locations} onCancel={() => setEditingRecId(null)} onSave={async u => { await db.collection('records').doc(u.id).update(u); setEditingRecId(null); }} onDelete={async id => { await db.collection('records').doc(id).delete(); setEditingRecId(null); }} t={t} /></td></tr> : <tr className={`hover:bg-slate-50 dark:hover:bg-slate-800 font-bold ${r.status === 'hidden' ? 'opacity-40 grayscale' : ''}`}><td className="p-4 whitespace-nowrap font-bold">{formatDateWithDay(r.date, lang)}</td><td className="p-4 text-lg font-bold whitespace-nowrap">{r.driverName}</td><td className="p-4 text-slate-400 font-bold">{r.location}</td><td className="p-4 text-right text-lg font-bold">{r.delivered}</td><td className="p-4 text-right text-orange-600 font-black font-bold"><div>¥{(r.allowance || 0).toLocaleString()}</div><div className="text-[9px] text-slate-400 font-normal">{r.remarks || "インセンティブ"}</div></td><td className="p-4 text-right text-lg font-bold font-black whitespace-nowrap">¥{((r.delivered * r.unitPrice) + (r.allowance || 0)).toLocaleString()}</td><td className="p-4 text-center font-bold"><button onClick={async () => await db.collection('records').doc(r.id).update({ status: r.status === 'hidden' ? 'visible' : 'hidden' })} className={`px-3 py-1 rounded-full text-xs font-black ${r.status === 'hidden' ? 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400' : 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400'}`}>{r.status === 'hidden' ? '非表示' : '表示中'}</button></td><td className="p-4 text-center font-bold"><button onClick={() => setEditingRecId(r.id)}><Icon name="edit" className="text-slate-300 text-xl" /></button></td></tr>}</React.Fragment>))}</tbody>
+                <tfoot className="bg-slate-800 dark:bg-slate-950 text-white font-black font-bold"><tr><td colSpan="3" className="p-4 text-left font-bold">表示合計（期間分）</td><td className="p-4 text-right text-xl font-bold whitespace-nowrap">{tableTotals.delivered.toLocaleString()} 個</td><td className="p-4 text-right text-lg text-orange-400 font-bold whitespace-nowrap">¥{tableTotals.allowance.toLocaleString()}</td><td className="p-4 text-right text-lg font-bold"><div className="flex flex-wrap justify-end gap-x-4"><span className="whitespace-nowrap">税抜: ¥{tableTotals.subtotal.toLocaleString()}</span><span className="text-orange-400 whitespace-nowrap">税込: ¥{tableTotals.grandTotal.toLocaleString()}</span></div></td><td colSpan="2"></td></tr></tfoot></table></div></Card>
+          )}
+
+          {tab === 'invoice' && (
+            <div className="space-y-6 font-bold">
+              <Card className="p-6 print-hidden flex flex-wrap gap-5 items-end font-bold">
+                <div className="flex-1 font-bold">
+                  <label className="text-xs text-slate-400 block mb-2 uppercase tracking-widest font-bold">Driver Selection</label>
+                  <select className="w-full p-4 border rounded-xl text-lg font-bold dark:bg-slate-700 dark:text-white" value={selDriver} onChange={e => setSelDriver(e.target.value)}>
+                    <option value="">ドライバーを選択</option>
+                    {data.drivers.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+                  </select>
+                </div>
+                <Button onClick={() => { const dr = data.drivers.find(d => d.id === selDriver); if (dr) document.title = `${dr.name}_${range.start}_${range.end}`; window.print(); }} className="bg-black text-white px-12 py-4 text-lg font-bold">PDFを出力</Button>
+              </Card>
+
+              {selDriver && (<div className="print-visible bg-white p-10 invoice-container min-h-[297mm] mx-auto text-black font-sans font-bold">
+                <div className="flex justify-between items-start border-b-4 border-black pb-5 mb-10 font-bold">
+                  <div><h1 className="text-4xl font-black tracking-[0.2em] font-black">{t.invoice}</h1><p className="text-base font-bold mt-2 uppercase tracking-tighter font-black font-bold">Statement of Payment</p></div>
+                  <div className="text-right text-xs leading-relaxed font-bold"><p>発行日: {new Date().toLocaleDateString()}</p><p>期間: {range.start} 〜 {range.end}</p></div>
+                </div>
+                <div className="flex justify-between mb-10 items-end font-bold">
+                  <div className="w-1/2 underline decoration-2 underline-offset-8 text-3xl font-black font-bold">{data.drivers.find(d => d.id === selDriver)?.name} 様</div>
+                  <div className="text-right border-l-4 border-black pl-5 leading-normal font-black font-bold font-black">
+                    <p className="text-2xl font-bold">{data.company.name}</p>
+                    <p className="text-[10px] tracking-tight mt-1 font-bold">〒{data.company.zip} {data.company.address}<br />TEL: {data.company.tel}</p>
+                  </div>
+                </div>
+                <div className="border-4 border-black p-5 flex justify-between items-center mb-10 font-bold font-black">
+                  <span className="text-lg uppercase tracking-widest font-bold">お支払合計金額（税込）</span>
+                  <span className="text-4xl font-bold">¥ {invoiceData.grandTotal.toLocaleString()} -</span>
+                </div>
+                <table className="w-full text-sm border-collapse mb-10 font-bold">
+                  <thead>
+                    <tr className="border-y-2 border-black bg-slate-50 font-bold">
+                      <th className="py-2 px-3 text-left font-bold">日付</th>
+                      <th className="py-2 px-3 text-left font-bold" colSpan="2">内容</th>
+                      <th className="py-2 px-3 text-right font-bold">単価</th>
+                      <th className="py-2 px-3 text-right font-bold">小計</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-black font-bold">
+                    {invoiceData.rows.map((r, i) => (
+                      <tr key={i}>
+                        <td className="py-1 px-3 whitespace-nowrap font-bold">{formatDateWithDay(r.date, lang)}</td>
+                        {r.isAllowance ? (
+                          <React.Fragment>
+                            <td className="py-1 px-3 leading-tight font-bold" colSpan="2">
+                              <span className="text-sm font-bold block">{r.combinedLabel}</span>
+                            </td>
+                          </React.Fragment>
+                        ) : (
+                          <React.Fragment>
+                            <td className="py-1 px-3 text-base font-bold">{r.label}</td>
+                            <td className="py-1 px-3 text-right text-base font-bold">{r.count}</td>
+                          </React.Fragment>
+                        )}
+                        <td className="py-1 px-3 text-right text-base font-bold">¥{r.unitPrice.toLocaleString()}</td>
+                        <td className="py-1 px-3 text-right text-base font-bold font-black">¥{r.subtotal.toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot className="border-t-4 border-black font-black font-bold">
+                    <tr><td colSpan="3"></td><td className="py-2 px-3 text-right text-base font-bold">小計 (税抜)</td><td className="py-2 px-3 text-right text-base font-bold">¥{invoiceData.subtotal.toLocaleString()}</td></tr>
+                    <tr><td colSpan="3"></td><td className="py-2 px-3 text-right text-base font-bold">消費税 (10%)</td><td className="py-2 px-3 text-right text-base font-bold">¥{invoiceData.tax.toLocaleString()}</td></tr>
+                    <tr className="text-xl bg-slate-100 font-bold">
+                      <td colSpan="3"></td>
+                      <td className="p-4 text-right border-t-4 border-black font-bold font-black font-bold">お支払合計 (税込)</td>
+                      <td className="p-4 text-right border-t-4 border-black font-black italic font-bold font-black">¥{invoiceData.grandTotal.toLocaleString()}</td>
+                    </tr>
+                  </tfoot>
+                </table>
+                <div className="mt-20 border-t border-black pt-5 text-xs text-center tracking-widest uppercase font-bold">Thank you for your business.</div>
+              </div>)}
+            </div>
+          )}
+
+          {tab === 'schedule' && <MasterScheduleView />}
+
+          {tab === 'offer' && (
+            <div className="grid md:grid-cols-2 gap-5 font-bold">
+              <Card className="p-6 border-2 border-orange-100 dark:border-orange-900/40 shadow-lg h-fit font-bold"><h3 className="text-xl mb-5 flex items-center gap-2 font-black font-bold dark:text-white"><Icon name="bag" /> {t.offer}</h3>
+                <div className="flex gap-2 mb-8 bg-slate-50 dark:bg-slate-900/40 p-2 rounded-xl font-bold"><button onClick={() => setOfferType('open')} className={`flex-1 py-3 text-sm font-black rounded-lg transition-all ${offerType === 'open' ? 'bg-orange-600 text-white shadow-md' : 'text-slate-400 dark:text-slate-500 font-bold'}`}>公募（全員）</button><button onClick={() => setOfferType('direct')} className={`flex-1 py-3 text-sm font-black rounded-lg transition-all ${offerType === 'direct' ? 'bg-slate-800 dark:bg-slate-600 text-white shadow-md' : 'text-slate-400 dark:text-slate-500 font-bold'}`}>指名（固定）</button></div>
+                <form onSubmit={handleCreateOffer} className="space-y-5 font-bold">
+                  <div className="space-y-1"><label className="text-xs text-slate-400 font-bold">日付</label><input name="d" type="date" value={offerDate} onChange={e => setOfferDate(e.target.value)} className="w-full p-4 border rounded-xl text-lg font-bold dark:bg-slate-700 dark:text-white" required /></div>
+                  <div className="grid grid-cols-2 gap-4 font-bold"><div className="space-y-1"><label className="text-xs text-slate-400 font-bold">拠点</label><select name="l" className="w-full p-4 border rounded-xl text-lg font-bold dark:bg-slate-700 dark:text-white" required><option value="">拠点を選択</option>{data.locations.map(l => <option key={l.id} value={l.name}>{l.name}</option>)}</select></div><div className="space-y-1"><label className="text-xs text-slate-400 font-bold">便数</label><select name="s" className="w-full p-4 border rounded-xl text-lg font-bold dark:bg-slate-700 dark:text-white" required><option value="1便">1便</option><option value="2便">2便</option></select></div></div>
+                  {offerType === 'direct' && (<div className="space-y-1 font-bold"><label className="text-xs text-orange-600 font-bold font-bold">指名 (非稼働日の人は表示されません)</label><select name="dri" className="w-full p-4 border border-orange-300 dark:border-orange-800 rounded-xl text-lg font-bold dark:bg-slate-700 dark:text-white" required><option value="">ドライバーを選択</option>{availableDriversForDirect.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}</select></div>)}
+                  <div className="space-y-1 font-bold"><label className="text-xs text-slate-400 font-bold">目安個数</label><input name="c" type="number" className="w-full p-4 border rounded-xl text-lg font-bold dark:bg-slate-700 dark:text-white" /></div>
+                  <Button type="submit" className={`w-full py-5 text-xl font-black ${offerType === 'direct' ? 'bg-slate-800 dark:bg-slate-600' : 'bg-orange-600'}`}>{offerType === 'direct' ? "指名案件を配信" : "公募案件を配信"}</Button>
+                </form></Card>
+              <div className="space-y-6 max-h-[700px] overflow-y-auto pr-2 font-bold">{Object.entries(groupedOffers).map(([date, items]) => (<div key={date} className="space-y-3 font-bold"><div className="text-xs font-black text-slate-400 dark:text-slate-500 border-b pb-2 flex items-center gap-2 font-bold font-black"><Icon name="calendar" className="text-xs" /> {formatDateWithDay(date, lang)}</div>{items.map(o => (<React.Fragment key={o.id}>{editingOfferId === o.id ? <EditOfferForm offer={o} locations={data.locations} drivers={data.drivers} onCancel={() => setEditingOfferId(null)} onSave={async u => { await db.collection('offers').doc(o.id).update(u); setEditingOfferId(null); alert("更新しました"); }} onDelete={async id => { await db.collection('offers').doc(id).delete(); setEditingOfferId(null); }} /> : <Card onClick={() => setEditingOfferId(o.id)} className="p-5 flex justify-between items-center cursor-pointer hover:border-orange-200 dark:hover:border-orange-900 transition-all font-bold font-bold text-slate-800 dark:text-white"><div className="font-bold"><div className="font-black text-slate-800 dark:text-white mb-2 flex items-center gap-2 text-base font-bold"><span className="bg-slate-800 dark:bg-slate-600 text-white px-3 py-0.5 rounded text-[10px] font-black font-bold font-black">{o.shift}</span>{o.location}</div><div className="text-slate-500 dark:text-slate-400 font-bold">{o.count || '未定'}個目安 / {o.filled ? <span className="text-blue-600 dark:text-blue-400 font-bold">確定: {o.driverName}</span> : <span className="text-orange-500 uppercase font-bold font-black">募集中</span>}</div></div><Icon name="edit" className="text-slate-300 dark:text-slate-600" /></Card>}</React.Fragment>))}</div>))}</div>
+            </div>
+          )}
+
+          {tab === 'messages' && (<div className="space-y-5 font-bold">
+            <Card className="p-6 border-2 border-orange-100 dark:border-orange-900 shadow-lg font-bold"><h3 className="font-black text-xl mb-4 flex items-center gap-2 font-black font-bold dark:text-white"><Icon name="bell" /> お知らせ配信</h3><textarea className="w-full p-4 border rounded-xl font-bold min-h-[120px] text-lg mb-4 text-slate-800 dark:text-white dark:bg-slate-700" placeholder="全員に配信されます" value={msgText} onChange={e => setMsgText(e.target.value)} /><Button onClick={async () => { if (!msgText.trim()) return; await db.collection('messages').add({ text: msgText, createdAt: firebase.firestore.FieldValue.serverTimestamp() }); setMsgText(''); alert("配信しました！"); }} className="w-full py-4 text-xl">配信する</Button></Card>
+            <div className="space-y-3 font-bold">{data.messages.slice(0, 10).map(m => (<Card key={m.id} className="p-5 flex justify-between items-start border-l-4 border-slate-400 dark:border-slate-600 font-bold"><div><div className="text-xs text-slate-400 dark:text-slate-500 mb-2 font-bold font-bold">{m.createdAt?.toDate().toLocaleString()}</div><div className="text-base text-slate-800 dark:text-white whitespace-pre-wrap font-bold font-bold">{m.text}</div></div><button onClick={async () => { if (confirm("削除しますか？")) await db.collection('messages').doc(m.id).delete(); }} className="text-red-200 dark:text-red-900 hover:text-red-500 text-2xl font-black font-bold">×</button></Card>))}</div>
+          </div>)}
+
+          {tab === 'drivers' && (<div className="grid md:grid-cols-2 gap-5 font-bold">
+            <Card key={editingDriver?.id || 'new-dr'} className="p-6 border-2 border-slate-200 dark:border-slate-700 shadow-md h-fit font-bold"><h3 className="text-xl mb-5 flex items-center gap-2 font-black font-bold dark:text-white"><Icon name="user" /> {editingDriver ? "情報を編集" : "新規ドライバー"}</h3><form onSubmit={editingDriver ? (e) => { e.preventDefault(); const f = new FormData(e.target); db.collection('drivers').doc(editingDriver.id).update({ name: f.get('n'), loginId: f.get('i'), password: f.get('p'), unitPrice: parseInt(f.get('u')) }); setEditingDriver(null); alert("更新しました"); } : (e) => { e.preventDefault(); const f = new FormData(e.target); db.collection('drivers').add({ name: f.get('n'), loginId: f.get('i'), password: f.get('p'), unitPrice: parseInt(f.get('u')), order: data.drivers.length, createdAt: firebase.firestore.FieldValue.serverTimestamp() }); e.target.reset(); alert("登録しました"); }} className="space-y-5 font-bold">
+              <div className="space-y-1 font-bold"><label className="text-xs text-slate-400 font-bold uppercase font-bold">氏名</label><input name="n" defaultValue={editingDriver?.name} className="w-full p-4 border rounded-xl text-lg font-black text-slate-800 dark:text-white dark:bg-slate-700 font-bold font-bold" required /></div>
+              <div className="grid grid-cols-2 gap-4 font-bold"><div className="space-y-1 font-bold"><label className="text-xs text-slate-400 font-bold uppercase font-bold">ID</label><input name="i" defaultValue={editingDriver?.loginId} className="p-4 border rounded-xl w-full text-lg font-bold dark:bg-slate-700 dark:text-white font-bold" required /></div><div className="space-y-1 font-bold"><label className="text-xs text-slate-400 font-bold uppercase font-bold">PASS</label><input name="p" defaultValue={editingDriver?.password} className="p-4 border rounded-xl w-full text-lg font-bold dark:bg-slate-700 dark:text-white font-bold" required /></div></div>
+              <div className="space-y-1 font-bold"><label className="text-xs text-slate-400 font-bold uppercase font-bold font-bold">単価</label><input name="u" type="number" defaultValue={editingDriver?.unitPrice} className="w-full p-4 border rounded-xl text-orange-600 text-2xl font-black font-bold font-bold dark:bg-slate-700" required /></div>
+              <div className="flex flex-col gap-2 pt-2 font-bold"><Button type="submit" className="w-full py-4 text-xl font-bold">{editingDriver ? "更新を保存" : "ドライバーを登録"}</Button>{editingDriver && (<div className="flex gap-2 font-bold font-bold"><Button onClick={() => { if (confirm(`本当に削除しますか？`)) { db.collection('drivers').doc(editingDriver.id).delete(); setEditingDriver(null); } }} variant="danger" className="flex-1 py-3 text-sm font-bold">削除</Button><Button onClick={() => setEditingDriver(null)} variant="outline" className="flex-1 py-3 text-sm font-bold font-bold">戻る</Button></div>)}</div>
+            </form></Card>
+            <div className="space-y-3 font-bold">{data.drivers.map((d, i) => (<Card key={d.id} onClick={() => setEditingDriver(d)} className={`p-5 flex justify-between items-center bg-white dark:bg-slate-800 cursor-pointer hover:border-orange-200 dark:hover:border-orange-900 transition-all font-bold ${editingDriver?.id === d.id ? 'border-orange-500 ring-2 ring-orange-50 dark:ring-orange-900/20' : ''}`}><div className="flex items-center gap-4 font-bold"><div className="flex flex-col font-bold" onClick={e => e.stopPropagation()}><button onClick={async () => { const list = [...data.drivers]; if (i > 0) { [list[i], list[i - 1]] = [list[i - 1], list[i]]; const b = db.batch(); list.forEach((it, idx) => b.update(db.collection('drivers').doc(it.id), { order: idx })); await b.commit(); } }} className="text-slate-300 hover:text-black dark:text-slate-600 dark:hover:text-slate-300 font-black p-1 font-bold">▲</button><button onClick={async () => { const list = [...data.drivers]; if (i < list.length - 1) { [list[i], list[i + 1]] = [list[i + 1], list[i]]; const b = db.batch(); list.forEach((it, idx) => b.update(db.collection('drivers').doc(it.id), { order: idx })); await b.commit(); } }} className="text-slate-300 hover:text-black dark:text-slate-600 dark:hover:text-slate-300 font-black p-1 font-bold">▼</button></div><div className="font-black text-xl text-slate-800 dark:text-white font-bold">{d.name} <span className="text-sm text-orange-500 ml-2 font-bold">¥{d.unitPrice}</span></div></div><Icon name="edit" className="text-slate-200 dark:text-slate-700" /></Card>))}</div>
+          </div>)}
+
+          {tab === 'settings' && (<div className="grid md:grid-cols-2 gap-5 font-bold">
+            <Card key={editingLocation?.id || 'new-loc'} className="p-6 h-fit shadow-md font-bold text-slate-800 dark:text-white font-bold"><h3 className="text-xl mb-5 flex items-center gap-2 font-black font-bold dark:text-white"><Icon name="gear" /> 拠点設定</h3><form onSubmit={editingLocation ? (e) => { e.preventDefault(); db.collection('locations').doc(editingLocation.id).update({ name: e.target.n.value }); setEditingLocation(null); alert("更新しました"); } : (e) => { e.preventDefault(); db.collection('locations').add({ name: e.target.n.value, order: data.locations.length }); e.target.reset(); }} className="space-y-4 font-bold font-bold">
+              <div className="flex gap-3 font-bold"><input name="n" placeholder="拠点名" defaultValue={editingLocation?.name} className="flex-1 p-4 border rounded-xl font-black text-lg font-bold dark:bg-slate-700" required />{!editingLocation && <Button type="submit" className="px-6 text-lg font-bold font-bold">追加</Button>}</div>
+              {editingLocation && (<div className="flex flex-col gap-2 font-bold font-bold"><Button type="submit" className="w-full py-3 text-lg font-bold font-bold font-bold">拠点を更新</Button><div className="flex gap-2 font-bold"><Button onClick={() => { if (confirm(`拠点「${editingLocation.name}」を削除しますか？`)) { db.collection('locations').doc(editingLocation.id).delete(); setEditingLocation(null); } }} variant="danger" className="flex-1 py-3 text-sm font-bold font-bold">削除</Button><Button onClick={() => setEditingLocation(null)} variant="outline" className="flex-1 py-3 text-sm font-bold font-bold font-bold">戻る</Button></div></div>)}
+            </form><div className="mt-8 space-y-2 max-h-[400px] overflow-y-auto pr-1 font-bold">{data.locations.map((l, idx) => (<div key={l.id} onClick={() => setEditingLocation(l)} className={`flex justify-between border-b dark:border-slate-700 py-3 text-lg items-center cursor-pointer transition-all font-bold font-bold ${editingLocation?.id === l.id ? 'bg-orange-50 dark:bg-orange-950/20 px-2 rounded-lg' : 'hover:bg-slate-50 dark:hover:bg-slate-800'}`}><div className="flex gap-4 items-center font-bold"><div className="flex flex-col font-bold" onClick={e => e.stopPropagation()}><button onClick={async () => { const list = [...data.locations]; if (idx > 0) { [list[idx], list[idx - 1]] = [list[idx - 1], list[idx]]; const b = db.batch(); list.forEach((it, k) => b.update(db.collection('locations').doc(it.id), { order: k })); await b.commit(); } }} className="text-slate-300 dark:text-slate-600 hover:text-black dark:hover:text-slate-300 font-black p-1 font-bold font-bold">▲</button><button onClick={async () => { const list = [...data.locations]; if (idx < list.length - 1) { [list[idx], list[idx + 1]] = [list[idx + 1], list[idx]]; const b = db.batch(); list.forEach((it, k) => b.update(db.collection('locations').doc(it.id), { order: k })); await b.commit(); } }} className="text-slate-300 dark:text-slate-600 hover:text-black dark:hover:text-slate-300 font-black p-1 font-bold font-bold">▼</button></div><span className="font-black font-bold font-bold dark:text-white">{l.name}</span></div><Icon name="edit" className="text-slate-200 dark:text-slate-700 text-sm font-bold font-bold" /></div>))}</div></Card>
+            <Card className="p-6 border-2 border-slate-100 dark:border-slate-700 shadow-md font-bold text-slate-800 dark:text-white font-bold"><h3 className="text-xl mb-5 flex items-center gap-2 font-black font-bold dark:text-white"><Icon name="print" /> 自社情報</h3><form onSubmit={e => { e.preventDefault(); const f = new FormData(e.target); db.collection('settings').doc('company').set({ name: f.get('n'), zip: f.get('z'), address: f.get('a'), tel: f.get('t') }); alert("保存しました"); }} className="space-y-5 font-bold">
+              <div className="space-y-1 font-bold"><label className="text-xs text-slate-400 font-bold font-bold">会社名</label><input name="n" defaultValue={data.company.name} className="w-full p-4 border rounded-xl text-lg font-black font-bold dark:bg-slate-700" /></div>
+              <div className="space-y-1 font-bold"><label className="text-xs text-slate-400 font-bold font-bold">郵便番号</label><input name="z" defaultValue={data.company.zip} className="w-full p-4 border rounded-xl text-lg font-black font-bold dark:bg-slate-700" /></div>
+              <div className="space-y-1 font-bold"><label className="text-xs text-slate-400 font-bold font-bold">住所</label><input name="a" defaultValue={data.company.address} className="w-full p-4 border rounded-xl text-lg font-black font-bold dark:bg-slate-700" /></div>
+              <div className="space-y-1 font-bold"><label className="text-xs text-slate-400 font-bold font-bold">電話番号</label><input name="t" defaultValue={data.company.tel} className="w-full p-4 border rounded-xl text-lg font-black font-bold dark:bg-slate-700" /></div>
+              <Button type="submit" className="w-full py-4 text-xl font-bold font-bold" variant="secondary">設定を保存</Button></form></Card>
+          </div>)}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+
+</html>
