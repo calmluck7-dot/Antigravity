@@ -1,0 +1,106 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // --- Helper Functions ---
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Check if user has a specific role in Custom Claims
+    function hasRole(role) {
+      return isAuthenticated() && request.auth.token.role == role;
+    }
+
+    // Check if user belongs to the requested company (via Custom Claims)
+    function isMemberOf(companyId) {
+      return isAuthenticated() && request.auth.token.companyId == companyId;
+    }
+
+    // Company Admin check
+    function isCompanyAdmin(companyId) {
+      return isMemberOf(companyId) && hasRole('admin');
+    }
+
+    // System Admin (Developer) check
+    function isSystemAdmin() {
+      return hasRole('developer');
+    }
+
+    // --- Rules ---
+
+    // System Management (Root Level)
+    match /system_admins/{uid} {
+      allow read, write: if isSystemAdmin();
+    }
+
+    // Companies (Multi-tenant Root)
+    match /companies/{companyId} {
+      // 1. Developer (System Admin): Full Access
+      allow read, write: if isSystemAdmin();
+
+      // 2. Company Admin: Manage own company settings
+      allow read, update: if isCompanyAdmin(companyId);
+
+      // 3. Driver: Read own company info (for context)
+      allow read: if isMemberOf(companyId);
+
+      // Sub-collection: Users (Employees/Drivers)
+      match /users/{userId} {
+        // Developer: Full Access
+        allow read, write: if isSystemAdmin();
+        
+        // Admin: Manage users in own company
+        allow read, write: if isCompanyAdmin(companyId);
+
+        // Driver: Read own profile
+        allow read: if isMemberOf(companyId) && request.auth.uid == userId;
+      }
+
+      // Sub-collection: Rate Tables (Master Data)
+      match /rateTables/{tableId} {
+         // Developer: Read Only
+         allow read: if isSystemAdmin();
+
+         // Admin: Manage rates (Full Access including Delete)
+         allow read, write: if isCompanyAdmin(companyId);
+
+         // Driver: Read only (to select rates)
+         allow read: if isMemberOf(companyId);
+      }
+
+      // Sub-collection: Daily Reports
+      match /dailyReports/{reportId} {
+        // Developer: Read Only
+        allow read: if isSystemAdmin();
+
+        // 1. READ Rules
+        allow read: if isMemberOf(companyId) && 
+                    (isCompanyAdmin(companyId) || resource.data.driverId == request.auth.uid);
+        
+        // 2. CREATE Rules
+        allow create: if isMemberOf(companyId) &&
+                      (
+                        // Driver creates for self
+                        (hasRole('driver') && request.resource.data.driverId == request.auth.uid) ||
+                        // Admin creates for anyone in company
+                        isCompanyAdmin(companyId)
+                      );
+
+        // 3. UPDATE Rules
+        allow update: if isMemberOf(companyId) &&
+                      (
+                         // Driver updates self (e.g. correction)
+                         (resource.data.driverId == request.auth.uid) ||
+                         // Admin updates any
+                         isCompanyAdmin(companyId)
+                      );
+        
+        // 4. DELETE Rules
+        // Admin: Full Delete Access
+        allow delete: if isCompanyAdmin(companyId);
+      }
+    }
+  }
+}
