@@ -4,7 +4,7 @@ import { stripe } from "@/lib/stripe";
 import { adminAuth, adminDb } from "@/lib/firebase-admin";
 import Stripe from "stripe";
 
-export const runtime = 'edge';
+
 
 
 export async function POST(req: Request) {

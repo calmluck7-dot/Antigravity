@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { adminAuth, adminDb } from "@/lib/firebase-admin"; // Reuse our admin pointers
 import { cookies } from "next/headers";
 
-export const runtime = 'edge';
+
 
 
 // Note: In Next.js App Router we can't easily get the ID token from client without passing it.
