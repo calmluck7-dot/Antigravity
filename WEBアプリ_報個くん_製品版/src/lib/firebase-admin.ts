@@ -16,8 +16,16 @@ if (!admin.apps.length) {
             }),
         });
     } else {
-        // Mock initialization for build phase
-        admin.initializeApp({ projectId });
+        // Mock initialization for build phase with dummy credentials to prevent ADC lookup failure
+        admin.initializeApp({
+            projectId,
+            credential: admin.credential.cert({
+                projectId,
+                clientEmail: "build-mock@example.com",
+                // Minimal valid-looking private key to pass validation
+                privateKey: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD0...mock...Key\n-----END PRIVATE KEY-----",
+            }),
+        });
     }
 }
 
