@@ -35,7 +35,19 @@ export default function LoginPage() {
 
     useEffect(() => {
         if (user) {
-            router.push("/admin/dashboard");
+            // ロールに応じてリダイレクト先を振り分ける
+            user.getIdTokenResult(true).then((result) => {
+                const role = result.claims.role as string | undefined;
+                if (role === "developer") {
+                    router.push("/developer");
+                } else if (role === "admin") {
+                    router.push("/admin/dashboard");
+                } else if (role === "driver") {
+                    router.push("/driver/dashboard");
+                } else {
+                    router.push("/dashboard");
+                }
+            });
         }
     }, [user, router]);
 
