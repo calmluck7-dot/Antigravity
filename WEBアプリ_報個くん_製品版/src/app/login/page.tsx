@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { login, checkEmailLink, loginWithLink, loginWithGoogle, getGoogleLoginResult } from "@/infra/auth";
+import { login, checkEmailLink, loginWithLink, loginWithGoogle } from "@/infra/auth";
 import { useAuth } from "@/ui/components/AuthProvider";
 import { Button } from "@/ui/components/Button";
 import { Input } from "@/ui/components/Input";
