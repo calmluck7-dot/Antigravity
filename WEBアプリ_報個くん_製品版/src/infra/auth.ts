@@ -4,12 +4,24 @@ import {
     sendPasswordResetEmail,
     isSignInWithEmailLink,
     signInWithEmailLink,
+    GoogleAuthProvider,
+    signInWithPopup,
 } from "firebase/auth";
 import { auth } from "./firebase";
 
 export const login = async (email: string, pass: string) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+        return userCredential.user;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
+};
+
+export const loginWithGoogle = async () => {
+    try {
+        const provider = new GoogleAuthProvider();
+        const userCredential = await signInWithPopup(auth, provider);
         return userCredential.user;
     } catch (error: any) {
         throw new Error(error.message);
