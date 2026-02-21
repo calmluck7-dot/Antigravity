@@ -28,7 +28,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 return;
             }
 
-            user.getIdTokenResult().then((idTokenResult) => {
+            // forceRefresh: true でCustom Claimsの変更を即座に反映
+            user.getIdTokenResult(true).then((idTokenResult) => {
                 const role = idTokenResult.claims.role;
                 // Allow admin and developer (as super-admin view)
                 if (role === "admin" || role === "developer") {
