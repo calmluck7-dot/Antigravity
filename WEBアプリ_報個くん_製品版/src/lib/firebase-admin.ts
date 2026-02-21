@@ -1,51 +1,65 @@
 import * as admin from "firebase-admin";
 
-const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || process.env.FIREBASE_PROJECT_ID || "demo-project";
-const privateKeyRaw = process.env.FIREBASE_PRIVATE_KEY;
-const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+let initialized = false;
 
-// プライベートキーの改行を正規化（Cloud Runでは\\nで届く場合がある）
-const privateKey = privateKeyRaw
-    ? privateKeyRaw.replace(/\\n/g, "\n")
-    : undefined;
+function initializeFirebaseAdmin() {
+    if (admin.apps.length > 0) {
+        initialized = true;
+        return;
+    }
 
-// Firebase Admin の初期化（重複防止）
-if (!admin.apps.length) {
-    if (privateKey && clientEmail) {
-        // 本番環境：実際の認証情報で初期化
+    const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || process.env.FIREBASE_PROJECT_ID;
+
+    // 方法1: JSON全体をBase64で環境変数に入れる（最も確実）
+    if (process.env.FIREBASE_SERVICE_ACCOUNT_B64) {
         try {
+            const json = JSON.parse(Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_B64, "base64").toString("utf8"));
+            admin.initializeApp({
+                credential: admin.credential.cert(json),
+                projectId: json.project_id || projectId,
+            });
+            console.log("✅ Firebase Admin: Base64 JSON で初期化しました");
+            initialized = true;
+            return;
+        } catch (e) {
+            console.error("❌ Firebase Admin Base64 初期化エラー:", e);
+        }
+    }
+
+    // 方法2: 個別の環境変数（FIREBASE_PRIVATE_KEY + FIREBASE_CLIENT_EMAIL）
+    if (process.env.FIREBASE_PRIVATE_KEY && process.env.FIREBASE_CLIENT_EMAIL) {
+        try {
+            const privateKey = process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n");
             admin.initializeApp({
                 credential: admin.credential.cert({
-                    projectId,
-                    clientEmail,
+                    projectId: projectId || "demo-project",
+                    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
                     privateKey,
                 }),
-                projectId,
+                projectId: projectId || "demo-project",
             });
-            console.log("✅ Firebase Admin: 本番認証情報で初期化しました");
-        } catch (error) {
-            console.error("❌ Firebase Admin 初期化エラー:", error);
-            throw error; // 本番でのエラーは握り潰さない
+            console.log("✅ Firebase Admin: 個別の環境変数で初期化しました");
+            initialized = true;
+            return;
+        } catch (e) {
+            console.error("❌ Firebase Admin 個別変数 初期化エラー:", e);
         }
-    } else {
-        // ビルド時のみ：ダミー認証情報で初期化
-        console.warn("⚠️ Firebase Admin: 環境変数が未設定のためビルド用モックで初期化します");
+    }
+
+    // ビルド時フォールバック（モック）
+    console.warn("⚠️ Firebase Admin: 認証情報未設定。ビルド用モックで初期化します");
+    try {
         admin.initializeApp({
-            projectId,
-            credential: admin.credential.cert({
-                projectId,
-                clientEmail: "build-mock@example.com",
-                privateKey: [
-                    "-----BEGIN RSA PRIVATE KEY-----",
-                    "MIIEpAIBAAKCAQEA0Z3VS5JJcds3xHn/ygWep4fIt6E4eMSGldhqAfMqnrBFuTXj",
-                    "-----END RSA PRIVATE KEY-----"
-                ].join("\n"),
-            }),
+            projectId: projectId || "mock-project-id",
         });
+    } catch (e) {
+        // 無視
     }
 }
 
-// サービスのエクスポート（本番ではエラーをそのまま伝播させる）
+initializeFirebaseAdmin();
+
+// サービスのエクスポート
 let _auth: ReturnType<typeof admin.auth>;
 let _db: ReturnType<typeof admin.firestore>;
 
@@ -54,13 +68,11 @@ try {
     _db = admin.firestore();
 } catch (e) {
     console.warn("⚠️ Firebase Admin サービス取得失敗。ビルド用モックを使用します:", e);
-
-    // ビルド時のみのフォールバックモック
     _auth = {
         verifyIdToken: async () => ({ uid: "mock", role: "guest" }),
         getUser: async () => ({ uid: "mock" }),
-        getUserByEmail: async () => { throw new Error("Mock: getUserByEmail unavailable"); },
-        createUser: async () => { throw new Error("Mock: createUser unavailable"); },
+        getUserByEmail: async () => { throw new Error("Firebase Admin 未設定"); },
+        createUser: async () => { throw new Error("Firebase Admin 未設定"); },
         setCustomUserClaims: async () => { },
         generateSignInWithEmailLink: async () => "http://mock.link",
     } as any;
@@ -69,7 +81,7 @@ try {
         collection: () => ({
             doc: () => ({
                 id: "mock-id",
-                set: async () => { throw new Error("Mock: Firestore unavailable"); },
+                set: async () => { throw new Error("Firebase Admin 未設定"); },
                 get: async () => ({ exists: false, data: () => ({}) }),
                 update: async () => { },
                 delete: async () => { },
@@ -79,7 +91,7 @@ try {
                 })
             }),
             where: () => ({ get: async () => ({ docs: [] }) }),
-            add: async () => { throw new Error("Mock: Firestore unavailable"); },
+            add: async () => { throw new Error("Firebase Admin 未設定"); },
         })
     } as any;
 }
