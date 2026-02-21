@@ -23,22 +23,15 @@ export default function LoginPage() {
         setError("");
         setLoading(true);
         try {
-            // リダイレクトを開始（このページから離れてGoogleに遷移する）
+            // ポップアップでGoogleログイン
             await loginWithGoogle();
+            router.push("/dashboard");
         } catch (err: any) {
             setError("Googleログインに失敗しました。");
+        } finally {
             setLoading(false);
         }
     };
-
-    // Googleリダイレクト後の結果を受け取る
-    useEffect(() => {
-        getGoogleLoginResult().then((user) => {
-            if (user) {
-                router.push("/dashboard");
-            }
-        }).catch(() => { });
-    }, []);
 
     useEffect(() => {
         if (user) {
