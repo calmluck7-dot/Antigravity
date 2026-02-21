@@ -5,7 +5,8 @@ import {
     isSignInWithEmailLink,
     signInWithEmailLink,
     GoogleAuthProvider,
-    signInWithPopup,
+    signInWithRedirect,
+    getRedirectResult,
 } from "firebase/auth";
 import { auth } from "./firebase";
 
@@ -21,8 +22,17 @@ export const login = async (email: string, pass: string) => {
 export const loginWithGoogle = async () => {
     try {
         const provider = new GoogleAuthProvider();
-        const userCredential = await signInWithPopup(auth, provider);
-        return userCredential.user;
+        // Googleのリダイレクトログインを開始（ポップアップはCOOPエラーが出るため使用しない）
+        await signInWithRedirect(auth, provider);
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
+};
+
+export const getGoogleLoginResult = async () => {
+    try {
+        const result = await getRedirectResult(auth);
+        return result?.user ?? null;
     } catch (error: any) {
         throw new Error(error.message);
     }

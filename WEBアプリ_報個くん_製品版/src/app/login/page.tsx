@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { login, checkEmailLink, loginWithLink, loginWithGoogle } from "@/infra/auth";
+import { login, checkEmailLink, loginWithLink, loginWithGoogle, getGoogleLoginResult } from "@/infra/auth";
 import { useAuth } from "@/ui/components/AuthProvider";
 import { Button } from "@/ui/components/Button";
 import { Input } from "@/ui/components/Input";
@@ -23,14 +23,22 @@ export default function LoginPage() {
         setError("");
         setLoading(true);
         try {
+            // リダイレクトを開始（このページから離れてGoogleに遷移する）
             await loginWithGoogle();
-            router.push("/dashboard");
         } catch (err: any) {
             setError("Googleログインに失敗しました。");
-        } finally {
             setLoading(false);
         }
     };
+
+    // Googleリダイレクト後の結果を受け取る
+    useEffect(() => {
+        getGoogleLoginResult().then((user) => {
+            if (user) {
+                router.push("/dashboard");
+            }
+        }).catch(() => { });
+    }, []);
 
     useEffect(() => {
         if (user) {
