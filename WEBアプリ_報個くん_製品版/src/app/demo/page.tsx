@@ -18,7 +18,7 @@ export default function DemoPage() {
                     <span className="flex items-center gap-2"><Truck className="w-6 h-6" /> 報個くん (デモ)</span>
                     <Button
                         variant="outline"
-                        className="py-1 px-3 border-slate-600 text-white bg-transparent hover:bg-slate-700 text-xs md:hidden"
+                        className="py-1 px-3 border-slate-600 text-white bg-transparent hover:bg-slate-700 text-xs"
                         onClick={() => router.push("/login")}
                     >
                         <ArrowLeft className="w-3 h-3 mr-1" /> 戻る
@@ -41,13 +41,7 @@ export default function DemoPage() {
                     </button>
                 </div>
 
-                <Button
-                    variant="outline"
-                    className="py-1 px-3 border-slate-600 text-white bg-transparent hover:bg-slate-700 text-sm hidden md:flex"
-                    onClick={() => router.push("/login")}
-                >
-                    <ArrowLeft className="w-4 h-4 mr-1" /> ログインへ戻る
-                </Button>
+
             </header>
 
             <main className="max-w-xl mx-auto p-4 space-y-6">
