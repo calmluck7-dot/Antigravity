@@ -7,12 +7,12 @@ import { useAuth } from "@/ui/components/AuthProvider";
 import { Button } from "@/ui/components/Button";
 import { Input } from "@/ui/components/Input";
 import { Card } from "@/ui/components/Card";
-import { LogIn, MonitorPlay, ShieldCheck, Building2 } from "lucide-react";
+import { LogIn, MonitorPlay } from "lucide-react";
 
 export default function LoginPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const { loginAsLocalAdmin, loginAsLocalDeveloper, user } = useAuth();
+    const { user } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -168,29 +168,6 @@ export default function LoginPage() {
                     デモを見る (ログイン不要)
                 </Button>
 
-                <Button
-                    onClick={() => {
-                        loginAsLocalAdmin();
-                        router.push("/admin/dashboard");
-                    }}
-                    variant="ghost"
-                    className="w-full py-2 text-sm text-slate-400 hover:text-slate-600 mt-2"
-                >
-                    <ShieldCheck className="w-4 h-4 mr-2" />
-                    管理者モードで試す (Local Mock)
-                </Button>
-
-                <Button
-                    onClick={() => {
-                        loginAsLocalDeveloper();
-                        router.push("/admin/dashboard");
-                    }}
-                    variant="ghost"
-                    className="w-full py-2 text-sm text-slate-400 hover:text-orange-600"
-                >
-                    <Building2 className="w-4 h-4 mr-2" />
-                    開発者モードで試す (Local Mock)
-                </Button>
             </Card>
         </div>
     );
