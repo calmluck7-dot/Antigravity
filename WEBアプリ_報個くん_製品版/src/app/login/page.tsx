@@ -25,7 +25,7 @@ export default function LoginPage() {
         try {
             // ポップアップでGoogleログイン
             await loginWithGoogle();
-            router.push("/dashboard");
+            router.push("/developer");
         } catch (err: any) {
             setError("Googleログインに失敗しました。");
         } finally {

@@ -30,8 +30,8 @@ export default function DeveloperConsole() {
                 return;
             }
 
-            // Check for developer claim
-            user.getIdTokenResult().then((idTokenResult) => {
+            // forceRefresh: true でCustom Claimsの変更を即座に反映
+            user.getIdTokenResult(true).then((idTokenResult) => {
                 if (idTokenResult.claims.role === "developer") {
                     setIsAdmin(true);
                 } else {
