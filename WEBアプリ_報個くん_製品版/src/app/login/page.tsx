@@ -18,6 +18,7 @@ export default function LoginPage() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [isLinkLogin, setIsLinkLogin] = useState(false);
+    const isPurchased = searchParams.get("purchased") === "true";
 
     const handleGoogleLogin = async () => {
         setError("");
@@ -124,6 +125,17 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-slate-50 dark:bg-slate-900 font-bold">
             <Card className="w-full max-w-sm p-8 space-y-8 bg-white dark:bg-slate-800 shadow-xl border-slate-200 dark:border-slate-700">
+                {/* 購入完了メッセージ */}
+                {isPurchased && (
+                    <div className="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800 text-center space-y-2">
+                        <p className="text-2xl">🎉</p>
+                        <p className="text-emerald-700 dark:text-emerald-300 font-black text-lg">ご購入ありがとうございます！</p>
+                        <p className="text-emerald-600 dark:text-emerald-400 text-sm">
+                            下の「Googleでログイン」ボタンから、決済時と同じメールアドレスでログインしてください。
+                        </p>
+                    </div>
+                )}
+
                 <div className="text-center space-y-2 mb-6">
                     <h1 className="text-4xl font-black text-center mb-2 dark:text-white tracking-tight">
                         📦 報個くん

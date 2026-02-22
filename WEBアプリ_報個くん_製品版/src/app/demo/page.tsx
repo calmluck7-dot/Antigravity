@@ -9,6 +9,37 @@ import { ArrowLeft, Truck, Package, Calendar, CheckCircle, Smartphone, LayoutDas
 export default function DemoPage() {
     const router = useRouter();
     const [viewMode, setViewMode] = useState<"driver" | "admin">("driver");
+    const [showPurchase, setShowPurchase] = useState(false);
+    const [companyName, setCompanyName] = useState("");
+    const [purchasing, setPurchasing] = useState(false);
+    const [purchaseError, setPurchaseError] = useState("");
+
+    // Stripe Checkout に遷移する処理
+    const handlePurchase = async () => {
+        if (!companyName.trim()) {
+            setPurchaseError("企業名を入力してください");
+            return;
+        }
+        setPurchasing(true);
+        setPurchaseError("");
+        try {
+            const res = await fetch("/api/checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ companyName: companyName.trim() }),
+            });
+            const data = await res.json();
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                setPurchaseError(data.error || "エラーが発生しました");
+            }
+        } catch (e: any) {
+            setPurchaseError("通信エラーが発生しました");
+        } finally {
+            setPurchasing(false);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-900 pb-20">
@@ -51,6 +82,52 @@ export default function DemoPage() {
 
                 {viewMode === "driver" ? <DriverDemoView /> : <AdminDemoView />}
 
+                {/* 購入セクション */}
+                <div className="mt-8 bg-gradient-to-br from-emerald-500 to-sky-600 p-6 rounded-2xl text-white shadow-xl">
+                    <h3 className="font-black text-xl text-center mb-2">🚀 本製品を導入する</h3>
+                    <p className="text-sm text-center opacity-90 mb-4">
+                        デモの機能がそのまま使えます。Googleアカウントで即日利用開始！
+                    </p>
+                    <div className="text-center mb-4">
+                        <span className="text-4xl font-black">¥10,000</span>
+                        <span className="text-sm opacity-80 ml-2">（税込・買い切り）</span>
+                    </div>
+
+                    {!showPurchase ? (
+                        <Button
+                            onClick={() => setShowPurchase(true)}
+                            className="w-full bg-white text-emerald-700 font-black text-lg py-4 rounded-xl hover:bg-emerald-50 shadow-lg"
+                        >
+                            購入手続きへ進む →
+                        </Button>
+                    ) : (
+                        <div className="space-y-3">
+                            <input
+                                type="text"
+                                placeholder="企業名を入力（例: 株式会社サンプル運送）"
+                                value={companyName}
+                                onChange={(e) => setCompanyName(e.target.value)}
+                                className="w-full p-3 rounded-xl text-slate-800 font-bold placeholder:text-slate-400 placeholder:font-normal"
+                            />
+                            {purchaseError && (
+                                <p className="text-red-200 text-sm font-bold text-center">{purchaseError}</p>
+                            )}
+                            <Button
+                                onClick={handlePurchase}
+                                disabled={purchasing}
+                                className="w-full bg-white text-emerald-700 font-black text-lg py-4 rounded-xl hover:bg-emerald-50 shadow-lg disabled:opacity-50"
+                            >
+                                {purchasing ? "処理中..." : "Stripe で決済する（¥10,000）"}
+                            </Button>
+                            <button
+                                onClick={() => setShowPurchase(false)}
+                                className="w-full text-sm opacity-70 hover:opacity-100"
+                            >
+                                キャンセル
+                            </button>
+                        </div>
+                    )}
+                </div>
             </main>
         </div>
     );

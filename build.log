@@ -1,0 +1,473 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild build -scheme TalkInvoice -destination "platform=iOS Simulator,name=iPhone 17 Pro" -project TalkInvoice.xcodeproj
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'TalkInvoice' in project 'TalkInvoice' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 3d1ccc1530d0b8c1a1e8fc43828dd085
+Build description path: /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/XCBuildData/3d1ccc1530d0b8c1a1e8fc43828dd085.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -o /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache
+
+WriteAuxiliaryFile /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.SwiftFileList (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    write-file /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.SwiftFileList
+
+ProcessProductPackaging /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/TalkInvoice.entitlements /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app.xcent (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+    Entitlements:
+    
+    {
+}
+    
+    builtin-productPackagingUtility /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/TalkInvoice.entitlements -entitlements -format xml -o /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app.xcent
+
+ProcessProductPackaging /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/TalkInvoice.entitlements /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app-Simulated.xcent (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+    Entitlements:
+    
+    {
+    "application-identifier" = "FAKETEAMID.com.talkinvoice.app";
+    "com.apple.developer.in-app-payments" =     (
+    );
+    "com.apple.developer.storekit.external-purchase.server-test-notification-url" = "";
+}
+    
+    builtin-productPackagingUtility /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/TalkInvoice.entitlements -entitlements -format xml -o /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app-Simulated.xcent
+
+WriteAuxiliaryFile /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice-OutputFileMap.json (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    write-file /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice-OutputFileMap.json
+
+ProcessProductPackagingDER /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app.xcent /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app.xcent.der (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    /usr/bin/derq query -f xml -i /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app.xcent -o /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app.xcent.der --raw
+
+ProcessProductPackagingDER /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app-Simulated.xcent /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app-Simulated.xcent.der (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    /usr/bin/derq query -f xml -i /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app-Simulated.xcent -o /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app-Simulated.xcent.der --raw
+
+GenerateAssetSymbols /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Assets.xcassets (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Assets.xcassets --compile /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/TalkInvoice.app --output-format human-readable-text --notices --warnings --export-dependency-info /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/assetcatalog_dependencies --output-partial-info-plist /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/assetcatalog_generated_info.plist --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --development-region ja --target-device iphone --target-device ipad --minimum-deployment-target 17.0 --platform iphonesimulator --bundle-identifier com.talkinvoice.app --generate-swift-asset-symbols /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources/GeneratedAssetSymbols.swift --generate-objc-asset-symbols /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources/GeneratedAssetSymbols.h --generate-asset-symbol-index /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/* com.apple.actool.compilation-results */
+/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources/GeneratedAssetSymbols.h
+/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources/GeneratedAssetSymbols.swift
+
+
+Ld /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/TalkInvoice.app/__preview.dylib normal (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator -F/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator -install_name @rpath/TalkInvoice.debug.dylib -dead_strip -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice_dependency_info.dat -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __entitlements -Xlinker /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app-Simulated.xcent -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __ents_der -Xlinker /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice.app-Simulated.xcent.der -Xlinker -no_adhoc_codesign -o /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/TalkInvoice.app/__preview.dylib
+
+CompileAssetCatalogVariant thinned /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/TalkInvoice.app /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Assets.xcassets (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Assets.xcassets --compile /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/assetcatalog_generated_info.plist_thinned --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --filter-for-thinning-device-configuration iPhone18,1 --filter-for-device-os-version 26.2 --development-region ja --target-device iphone --target-device ipad --minimum-deployment-target 17.0 --platform iphonesimulator
+
+SwiftDriver TalkInvoice normal arm64 com.apple.xcode.tools.swift.compiler (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name TalkInvoice -Onone -enforce-exclusivity\=checked @/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.SwiftFileList -DDEBUG -enable-upcoming-feature StrictConcurrency -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator -F /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice_const_extract_protocols.json -Xcc -iquote -Xcc /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice-generated-files.hmap -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice-own-target-headers.hmap -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice-all-target-headers.hmap -Xcc -iquote -Xcc /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice-project-headers.hmap -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources-normal/arm64 -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources/arm64 -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice-Swift.h -working-directory /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity -experimental-emit-module-separately -disable-cmo
+
+SwiftCompile normal arm64 Compiling\ InvoiceHistoryView.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Views/History/InvoiceHistoryView.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Views/History/InvoiceHistoryView.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+
+SwiftCompile normal arm64 Compiling\ GeneratedAssetSymbols.swift /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+
+SwiftCompile normal arm64 Compiling\ VoiceInputViewModel.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:110:43: warning: sending value of non-Sendable type 'any UsageTrackerProtocol' risks causing data races; this is an error in the Swift 6 language mode
+        currentUsage = await usageTracker.currentMonthUsage()
+                             ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:110:43: note: sending main actor-isolated value of non-Sendable type 'any UsageTrackerProtocol' to nonisolated instance method 'currentMonthUsage()' risks causing races in between main actor-isolated and nonisolated uses
+        currentUsage = await usageTracker.currentMonthUsage()
+                                          ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:111:45: warning: sending value of non-Sendable type 'any UsageTrackerProtocol' risks causing data races; this is an error in the Swift 6 language mode
+        remainingQuota = await usageTracker.remainingQuota(for: subscriptionManager.currentPlan)
+                               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:111:45: note: sending main actor-isolated value of non-Sendable type 'any UsageTrackerProtocol' to nonisolated instance method 'remainingQuota(for:)' risks causing races in between main actor-isolated and nonisolated uses
+        remainingQuota = await usageTracker.remainingQuota(for: subscriptionManager.currentPlan)
+                                            ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:92:37: warning: sending value of non-Sendable type 'any SpeechRecognitionProtocol' risks causing data races; this is an error in the Swift 6 language mode
+        _ = await speechRecognition.requestPermissions()
+                  ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:92:37: note: sending main actor-isolated value of non-Sendable type 'any SpeechRecognitionProtocol' to nonisolated instance method 'requestPermissions()' risks causing races in between main actor-isolated and nonisolated uses
+        _ = await speechRecognition.requestPermissions()
+                                    ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:166:45: warning: sending value of non-Sendable type 'any AIServiceProtocol' risks causing data races; this is an error in the Swift 6 language mode
+            let draft = try await aiService.extractInvoiceData(from: transcribedText)
+                                  ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:166:45: note: sending main actor-isolated value of non-Sendable type 'any AIServiceProtocol' to nonisolated instance method 'extractInvoiceData(from:)' risks causing races in between main actor-isolated and nonisolated uses
+            let draft = try await aiService.extractInvoiceData(from: transcribedText)
+                                            ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:174:51: warning: sending 'invoice' risks causing data races; this is an error in the Swift 6 language mode
+            let pdfURL = try await invoiceService.generatePDF(for: invoice)
+                                   ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:174:51: note: sending main actor-isolated 'invoice' to nonisolated instance method 'generatePDF(for:)' risks causing data races between nonisolated and main actor-isolated uses
+            let pdfURL = try await invoiceService.generatePDF(for: invoice)
+                                                  ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:174:51: warning: sending value of non-Sendable type 'any InvoiceServiceProtocol' risks causing data races; this is an error in the Swift 6 language mode
+            let pdfURL = try await invoiceService.generatePDF(for: invoice)
+                                   ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:174:51: note: sending main actor-isolated value of non-Sendable type 'any InvoiceServiceProtocol' to nonisolated instance method 'generatePDF(for:)' risks causing races in between main actor-isolated and nonisolated uses
+            let pdfURL = try await invoiceService.generatePDF(for: invoice)
+                                                  ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:177:32: warning: sending value of non-Sendable type 'any UsageTrackerProtocol' risks causing data races; this is an error in the Swift 6 language mode
+            await usageTracker.incrementUsage()
+                  ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:177:32: note: sending main actor-isolated value of non-Sendable type 'any UsageTrackerProtocol' to nonisolated instance method 'incrementUsage()' risks causing races in between main actor-isolated and nonisolated uses
+            await usageTracker.incrementUsage()
+                               ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:125:44: warning: sending value of non-Sendable type 'any UsageTrackerProtocol' risks causing data races; this is an error in the Swift 6 language mode
+        let canCreate = await usageTracker.canCreateInvoice(for: subscriptionManager.currentPlan)
+                              ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift:125:44: note: sending main actor-isolated value of non-Sendable type 'any UsageTrackerProtocol' to nonisolated instance method 'canCreateInvoice(for:)' risks causing races in between main actor-isolated and nonisolated uses
+        let canCreate = await usageTracker.canCreateInvoice(for: subscriptionManager.currentPlan)
+                                           ^
+
+SwiftCompile normal arm64 Compiling\ MonthlyUsage.swift,\ SpeechManager.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/MonthlyUsage.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/MonthlyUsage.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+@__swiftmacro_11TalkInvoice12MonthlyUsage5ModelfMe_.swift:9:25: warning: redundant conformance of 'MonthlyUsage' to protocol 'Sendable'
+extension MonthlyUsage: Sendable {
+                        ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/MonthlyUsage.swift:5:1: note: in expansion of macro 'Model' on class 'MonthlyUsage' here
+@Model
+^~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/MonthlyUsage.swift:5:1: note: in expansion of macro 'Model' on class 'MonthlyUsage' here
+@Model
+^~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/MonthlyUsage.swift:6:13: note: 'MonthlyUsage' declares conformance to protocol 'Sendable' here
+final class MonthlyUsage: @unchecked Sendable {
+            ^
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+@__swiftmacro_11TalkInvoice12MonthlyUsage5ModelfMe_.swift:9:25: warning: redundant conformance of 'MonthlyUsage' to protocol 'Sendable'
+extension MonthlyUsage: Sendable {
+                        ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/MonthlyUsage.swift:5:1: note: in expansion of macro 'Model' on class 'MonthlyUsage' here
+@Model
+^~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/MonthlyUsage.swift:5:1: note: in expansion of macro 'Model' on class 'MonthlyUsage' here
+@Model
+^~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/MonthlyUsage.swift:6:13: note: 'MonthlyUsage' declares conformance to protocol 'Sendable' here
+final class MonthlyUsage: @unchecked Sendable {
+            ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:32: warning: conformance of 'SpeechManager' to protocol 'SpeechRecognitionProtocol' crosses into main actor-isolated code and can cause data races; this is an error in the Swift 6 language mode
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+                               ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:32: note: isolate this conformance to the main actor with '@MainActor'
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+                               ^
+                               @MainActor 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:7: note: mark all declarations used in the conformance 'nonisolated'
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+      ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:32: note: turn data races into runtime errors with '@preconcurrency'
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+                               ^
+                               @preconcurrency 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:17:20: note: main actor-isolated property 'isRecording' cannot satisfy nonisolated requirement
+    @Published var isRecording: Bool = false
+                   ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:49:10: note: main actor-isolated instance method 'startRecording()' cannot satisfy nonisolated requirement
+    func startRecording() -> AsyncThrowingStream<String, Error> {
+         ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:104:10: note: main actor-isolated instance method 'stopRecording()' cannot satisfy nonisolated requirement
+    func stopRecording() {
+         ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:59: warning: conformance of 'SpeechManager' to protocol 'SpeechSynthesisProtocol' crosses into main actor-isolated code and can cause data races; this is an error in the Swift 6 language mode
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+                                                          ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:59: note: isolate this conformance to the main actor with '@MainActor'
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+                                                          ^
+                                                          @MainActor 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:7: note: mark all declarations used in the conformance 'nonisolated'
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+      ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:59: note: turn data races into runtime errors with '@preconcurrency'
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+                                                          ^
+                                                          @preconcurrency 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:123:10: note: main actor-isolated instance method 'speak' cannot satisfy nonisolated requirement
+    func speak(_ text: String) {
+         ^
+
+SwiftCompile normal arm64 Compiling\ UsageTracker.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/UsageTracker.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/UsageTracker.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+@__swiftmacro_11TalkInvoice0023UsageTrackerswift_elFCffMX19_23_9PredicatefMf_.swift:5:22: warning: type 'ReferenceWritableKeyPath<MonthlyUsage, String>' does not conform to the 'Sendable' protocol; this is an error in the Swift 6 language mode
+            keyPath: \.yearMonth
+                     ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/UsageTracker.swift:20:24: note: in expansion of macro 'Predicate' here
+            predicate: #Predicate { $0.yearMonth == currentMonth }
+                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/UsageTracker.swift:20:24: note: in expansion of macro 'Predicate' here
+            predicate: #Predicate { $0.yearMonth == currentMonth }
+                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Swift.ReferenceWritableKeyPath:1:14: note: generic class 'ReferenceWritableKeyPath' does not conform to the 'Sendable' protocol
+public class ReferenceWritableKeyPath<Root, Value> : WritableKeyPath<Root, Value> {
+             ^
+@__swiftmacro_11TalkInvoice0023UsageTrackerswift_elFCffMX34_23_9PredicatefMf_.swift:5:22: warning: type 'ReferenceWritableKeyPath<MonthlyUsage, String>' does not conform to the 'Sendable' protocol; this is an error in the Swift 6 language mode
+            keyPath: \.yearMonth
+                     ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/UsageTracker.swift:35:24: note: in expansion of macro 'Predicate' here
+            predicate: #Predicate { $0.yearMonth == currentMonth }
+                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/UsageTracker.swift:35:24: note: in expansion of macro 'Predicate' here
+            predicate: #Predicate { $0.yearMonth == currentMonth }
+                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Swift.ReferenceWritableKeyPath:1:14: note: generic class 'ReferenceWritableKeyPath' does not conform to the 'Sendable' protocol
+public class ReferenceWritableKeyPath<Root, Value> : WritableKeyPath<Root, Value> {
+             ^
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ TalkInvoice (in target 'TalkInvoice' from project 'TalkInvoice')
+
+EmitSwiftModule normal arm64 (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+@__swiftmacro_11TalkInvoice12MonthlyUsage5ModelfMe_.swift:9:25: warning: redundant conformance of 'MonthlyUsage' to protocol 'Sendable'
+extension MonthlyUsage: Sendable {
+                        ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/MonthlyUsage.swift:5:1: note: in expansion of macro 'Model' on class 'MonthlyUsage' here
+@Model
+^~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/MonthlyUsage.swift:5:1: note: in expansion of macro 'Model' on class 'MonthlyUsage' here
+@Model
+^~~~~~
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/MonthlyUsage.swift:6:13: note: 'MonthlyUsage' declares conformance to protocol 'Sendable' here
+final class MonthlyUsage: @unchecked Sendable {
+            ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:32: warning: conformance of 'SpeechManager' to protocol 'SpeechRecognitionProtocol' crosses into main actor-isolated code and can cause data races; this is an error in the Swift 6 language mode
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+                               ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:32: note: isolate this conformance to the main actor with '@MainActor'
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+                               ^
+                               @MainActor 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:7: note: mark all declarations used in the conformance 'nonisolated'
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+      ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:32: note: turn data races into runtime errors with '@preconcurrency'
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+                               ^
+                               @preconcurrency 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:17:20: note: main actor-isolated property 'isRecording' cannot satisfy nonisolated requirement
+    @Published var isRecording: Bool = false
+                   ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:49:10: note: main actor-isolated instance method 'startRecording()' cannot satisfy nonisolated requirement
+    func startRecording() -> AsyncThrowingStream<String, Error> {
+         ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:104:10: note: main actor-isolated instance method 'stopRecording()' cannot satisfy nonisolated requirement
+    func stopRecording() {
+         ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:59: warning: conformance of 'SpeechManager' to protocol 'SpeechSynthesisProtocol' crosses into main actor-isolated code and can cause data races; this is an error in the Swift 6 language mode
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+                                                          ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:59: note: isolate this conformance to the main actor with '@MainActor'
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+                                                          ^
+                                                          @MainActor 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:7: note: mark all declarations used in the conformance 'nonisolated'
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+      ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:10:59: note: turn data races into runtime errors with '@preconcurrency'
+class SpeechManager: NSObject, SpeechRecognitionProtocol, SpeechSynthesisProtocol, ObservableObject {
+                                                          ^
+                                                          @preconcurrency 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift:123:10: note: main actor-isolated instance method 'speak' cannot satisfy nonisolated requirement
+    func speak(_ text: String) {
+         ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift:7:46: warning: conformance of 'SubscriptionManager' to protocol 'SubscriptionServiceProtocol' crosses into main actor-isolated code and can cause data races; this is an error in the Swift 6 language mode
+class SubscriptionManager: ObservableObject, SubscriptionServiceProtocol {
+                                             ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift:7:46: note: isolate this conformance to the main actor with '@MainActor'
+class SubscriptionManager: ObservableObject, SubscriptionServiceProtocol {
+                                             ^
+                                             @MainActor 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift:7:46: note: turn data races into runtime errors with '@preconcurrency'
+class SubscriptionManager: ObservableObject, SubscriptionServiceProtocol {
+                                             ^
+                                             @preconcurrency 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift:8:20: note: main actor-isolated property 'currentPlan' cannot satisfy nonisolated requirement
+    @Published var currentPlan: SubscriptionPlan = .free
+                   ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift:9:20: note: main actor-isolated property 'isPurchasing' cannot satisfy nonisolated requirement
+    @Published var isPurchasing: Bool = false
+                   ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Mock/MockServices.swift:65:50: warning: conformance of 'MockSubscriptionManager' to protocol 'SubscriptionServiceProtocol' crosses into main actor-isolated code and can cause data races; this is an error in the Swift 6 language mode
+class MockSubscriptionManager: ObservableObject, SubscriptionServiceProtocol {
+                                                 ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Mock/MockServices.swift:65:50: note: isolate this conformance to the main actor with '@MainActor'
+class MockSubscriptionManager: ObservableObject, SubscriptionServiceProtocol {
+                                                 ^
+                                                 @MainActor 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Mock/MockServices.swift:65:50: note: turn data races into runtime errors with '@preconcurrency'
+class MockSubscriptionManager: ObservableObject, SubscriptionServiceProtocol {
+                                                 ^
+                                                 @preconcurrency 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Mock/MockServices.swift:66:20: note: main actor-isolated property 'currentPlan' cannot satisfy nonisolated requirement
+    @Published var currentPlan: SubscriptionPlan = .free
+                   ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Mock/MockServices.swift:67:20: note: main actor-isolated property 'isPurchasing' cannot satisfy nonisolated requirement
+    @Published var isPurchasing: Bool = false
+                   ^
+
+SwiftCompile normal arm64 Compiling\ MainView.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Views/Main/MainView.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Views/Main/MainView.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+
+SwiftCompile normal arm64 Compiling\ PaywallView.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Views/Paywall/PaywallView.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Views/Paywall/PaywallView.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling GeneratedAssetSymbols.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 Compiling\ PDFInvoiceGenerator.swift,\ SubscriptionManager.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/PDFInvoiceGenerator.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+Failed frontend command:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/App/TalkInvoiceApp.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/App/DependencyContainer.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/Invoice.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/InvoiceDraft.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/MonthlyUsage.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Interfaces/SpeechServiceProtocol.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Interfaces/AIServiceProtocol.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Interfaces/InvoiceServiceProtocol.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Interfaces/SubscriptionServiceProtocol.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Interfaces/UsageTrackerProtocol.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SpeechManager.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/OpenAIService.swift -primary-file /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/PDFInvoiceGenerator.swift -primary-file /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/UsageTracker.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Mock/MockServices.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Utilities/AppError.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Utilities/Configuration.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Utilities/Constants.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Utilities/SubscriptionPlan.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/ViewModels/VoiceInputViewModel.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Views/Main/MainView.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Views/History/InvoiceHistoryView.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Views/Paywall/PaywallView.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Views/Components/VoiceWaveformView.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Views/Components/InvoicePreviewView.swift /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources/GeneratedAssetSymbols.swift -emit-dependencies-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/PDFInvoiceGenerator.d -emit-const-values-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/PDFInvoiceGenerator.swiftconstvalues -emit-reference-dependencies-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/PDFInvoiceGenerator.swiftdeps -serialize-diagnostics-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/PDFInvoiceGenerator.dia -emit-dependencies-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/SubscriptionManager.d -emit-const-values-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/SubscriptionManager.swiftconstvalues -emit-reference-dependencies-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/SubscriptionManager.swiftdeps -serialize-diagnostics-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/SubscriptionManager.dia -emit-localized-strings -emit-localized-strings-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64 -target arm64-apple-ios17.0-simulator -module-can-import-version DeveloperToolsSupport 23.0.4 23.0.4 -module-can-import-version SwiftUI 7.2.5.1 7.2.5 -module-can-import-version UIKit 9126.2.4.1 9126.2.4 -disable-cross-import-overlay-search -swift-module-cross-import StoreKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/StoreKit.framework/Modules/StoreKit.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import StoreKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/System/Library/Frameworks/StoreKit.framework/Modules/StoreKit.swiftcrossimport/SwiftUI.swiftoverlay -swift-module-cross-import SwiftData /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/System/Library/Frameworks/SwiftData.framework/Modules/SwiftData.swiftcrossimport/CoreData.swiftoverlay -swift-module-cross-import SwiftData /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/System/Library/Frameworks/SwiftData.framework/Modules/SwiftData.swiftcrossimport/SwiftUI.swiftoverlay -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libFoundationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#FoundationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libObservationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#ObservationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libPreviewsMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#PreviewsMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftDataMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftDataMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftUIMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftUIMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -I /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator -F /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=4 -module-cache-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -swift-version 5 -enforce-exclusivity\=checked -Onone -D DEBUG -serialize-debugging-options -const-gather-protocols-file /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice_const_extract_protocols.json -enable-upcoming-feature StrictConcurrency -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity -enable-anonymous-context-mangled-names -file-compilation-dir /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/swift-overrides.hmap -Xcc -iquote -Xcc /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice-generated-files.hmap -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice-own-target-headers.hmap -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice-all-target-headers.hmap -Xcc -iquote -Xcc /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice-project-headers.hmap -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources-normal/arm64 -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources/arm64 -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name TalkInvoice -frontend-parseable-output -disable-clang-spi -target-sdk-version 26.2 -target-sdk-name iphonesimulator26.2 -clang-target arm64-apple-ios26.2-simulator -in-process-plugin-server-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -o /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/PDFInvoiceGenerator.o -o /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/SubscriptionManager.o -index-unit-output-path /TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/PDFInvoiceGenerator.o -index-unit-output-path /TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/SubscriptionManager.o -index-store-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Index.noindex/DataStore -index-system-modules
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/PDFInvoiceGenerator.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift:7:46: warning: conformance of 'SubscriptionManager' to protocol 'SubscriptionServiceProtocol' crosses into main actor-isolated code and can cause data races; this is an error in the Swift 6 language mode
+class SubscriptionManager: ObservableObject, SubscriptionServiceProtocol {
+                                             ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift:7:46: note: isolate this conformance to the main actor with '@MainActor'
+class SubscriptionManager: ObservableObject, SubscriptionServiceProtocol {
+                                             ^
+                                             @MainActor 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift:7:46: note: turn data races into runtime errors with '@preconcurrency'
+class SubscriptionManager: ObservableObject, SubscriptionServiceProtocol {
+                                             ^
+                                             @preconcurrency 
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift:8:20: note: main actor-isolated property 'currentPlan' cannot satisfy nonisolated requirement
+    @Published var currentPlan: SubscriptionPlan = .free
+                   ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift:9:20: note: main actor-isolated property 'isPurchasing' cannot satisfy nonisolated requirement
+    @Published var isPurchasing: Bool = false
+                   ^
+/Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift:107:38: error: main actor-isolated instance method 'checkVerified' cannot be called from outside of the actor
+                if let _ = try? self.checkVerified(result) {
+                           ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~
+                                await 
+
+SwiftDriverJobDiscovery normal arm64 Compiling UsageTracker.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 Compiling\ DependencyContainer.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/App/DependencyContainer.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/App/DependencyContainer.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for TalkInvoice (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftDriver\ Compilation\ Requirements TalkInvoice normal arm64 com.apple.xcode.tools.swift.compiler (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name TalkInvoice -Onone -enforce-exclusivity\=checked @/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.SwiftFileList -DDEBUG -enable-upcoming-feature StrictConcurrency -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator -F /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice_const_extract_protocols.json -Xcc -iquote -Xcc /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice-generated-files.hmap -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice-own-target-headers.hmap -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice-all-target-headers.hmap -Xcc -iquote -Xcc /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/TalkInvoice-project-headers.hmap -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources-normal/arm64 -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources/arm64 -Xcc -I/Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice-Swift.h -working-directory /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity -experimental-emit-module-separately -disable-cmo
+
+SwiftDriverJobDiscovery normal arm64 Compiling VoiceInputViewModel.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 Compiling\ InvoiceDraft.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/InvoiceDraft.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Models/InvoiceDraft.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+
+Copy /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/TalkInvoice.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.swiftmodule (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.swiftmodule /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/TalkInvoice.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+SwiftDriverJobDiscovery normal arm64 Compiling InvoiceHistoryView.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+Copy /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/TalkInvoice.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.swiftdoc (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.swiftdoc /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/TalkInvoice.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+
+SwiftDriverJobDiscovery normal arm64 Compiling MonthlyUsage.swift, SpeechManager.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+Copy /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/TalkInvoice.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.abi.json (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.abi.json /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/TalkInvoice.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/TalkInvoice.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.swiftsourceinfo (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Intermediates.noindex/TalkInvoice.build/Debug-iphonesimulator/TalkInvoice.build/Objects-normal/arm64/TalkInvoice.swiftsourceinfo /Users/murakamitatsuki/Library/Developer/Xcode/DerivedData/TalkInvoice-gfmekednccaycgbsjyklefluvbch/Build/Products/Debug-iphonesimulator/TalkInvoice.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+SwiftCompile normal arm64 Compiling\ MockServices.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Mock/MockServices.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Mock/MockServices.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+
+SwiftCompile normal arm64 Compiling\ TalkInvoiceApp.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/App/TalkInvoiceApp.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/App/TalkInvoiceApp.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+    cd /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity
+    
+
+SwiftCompile normal arm64 Compiling\ SubscriptionPlan.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Utilities/SubscriptionPlan.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+SwiftDriverJobDiscovery normal arm64 Compiling DependencyContainer.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+
+** BUILD FAILED **
+
+
+The following build commands failed:
+	SwiftCompile normal arm64 Compiling\ PDFInvoiceGenerator.swift,\ SubscriptionManager.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/PDFInvoiceGenerator.swift /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+	SwiftCompile normal arm64 /Users/murakamitatsuki/Library/CloudStorage/GoogleDrive-calmluck7@gmail.com/マイドライブ/Antigravity/TalkInvoice/Services/Implementations/SubscriptionManager.swift (in target 'TalkInvoice' from project 'TalkInvoice')
+	Building project TalkInvoice with scheme TalkInvoice
+(3 failures)

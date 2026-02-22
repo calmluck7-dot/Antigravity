@@ -1,0 +1,521 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10001 /* TalkInvoiceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10001 /* TalkInvoiceApp.swift */; };
+		A10002 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002 /* DependencyContainer.swift */; };
+		A10003 /* Invoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10003 /* Invoice.swift */; };
+		A10004 /* InvoiceDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10004 /* InvoiceDraft.swift */; };
+		A10005 /* MonthlyUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10005 /* MonthlyUsage.swift */; };
+		A10006 /* SpeechServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10006 /* SpeechServiceProtocol.swift */; };
+		A10007 /* AIServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10007 /* AIServiceProtocol.swift */; };
+		A10008 /* InvoiceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10008 /* InvoiceServiceProtocol.swift */; };
+		A10009 /* SubscriptionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10009 /* SubscriptionServiceProtocol.swift */; };
+		A10010 /* UsageTrackerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10010 /* UsageTrackerProtocol.swift */; };
+		A10011 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10011 /* SpeechManager.swift */; };
+		A10012 /* GeminiAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10012 /* GeminiAIService.swift */; };
+		A10013 /* PDFInvoiceGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013 /* PDFInvoiceGenerator.swift */; };
+		A10014 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014 /* SubscriptionManager.swift */; };
+		A10015 /* UsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015 /* UsageTracker.swift */; };
+		A10016 /* MockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10016 /* MockServices.swift */; };
+		A10017 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10017 /* AppError.swift */; };
+		A10018 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10018 /* Configuration.swift */; };
+		A10019 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10019 /* Constants.swift */; };
+		A10020 /* SubscriptionPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10020 /* SubscriptionPlan.swift */; };
+		A10021 /* VoiceInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10021 /* VoiceInputViewModel.swift */; };
+		A10022 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10022 /* MainView.swift */; };
+		A10023 /* InvoiceHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10023 /* InvoiceHistoryView.swift */; };
+		A10024 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10024 /* PaywallView.swift */; };
+		A10025 /* VoiceWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10025 /* VoiceWaveformView.swift */; };
+		A10026 /* InvoicePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10026 /* InvoicePreviewView.swift */; };
+		A10030 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10030 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B10001 /* TalkInvoiceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkInvoiceApp.swift; sourceTree = "<group>"; };
+		B10002 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
+		B10003 /* Invoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoice.swift; sourceTree = "<group>"; };
+		B10004 /* InvoiceDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceDraft.swift; sourceTree = "<group>"; };
+		B10005 /* MonthlyUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyUsage.swift; sourceTree = "<group>"; };
+		B10006 /* SpeechServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechServiceProtocol.swift; sourceTree = "<group>"; };
+		B10007 /* AIServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIServiceProtocol.swift; sourceTree = "<group>"; };
+		B10008 /* InvoiceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceServiceProtocol.swift; sourceTree = "<group>"; };
+		B10009 /* SubscriptionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionServiceProtocol.swift; sourceTree = "<group>"; };
+		B10010 /* UsageTrackerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTrackerProtocol.swift; sourceTree = "<group>"; };
+		B10011 /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
+		B10012 /* GeminiAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiAIService.swift; sourceTree = "<group>"; };
+		B10013 /* PDFInvoiceGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFInvoiceGenerator.swift; sourceTree = "<group>"; };
+		B10014 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		B10015 /* UsageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTracker.swift; sourceTree = "<group>"; };
+		B10016 /* MockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServices.swift; sourceTree = "<group>"; };
+		B10017 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		B10018 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		B10019 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B10020 /* SubscriptionPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPlan.swift; sourceTree = "<group>"; };
+		B10021 /* VoiceInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceInputViewModel.swift; sourceTree = "<group>"; };
+		B10022 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		B10023 /* InvoiceHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHistoryView.swift; sourceTree = "<group>"; };
+		B10024 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		B10025 /* VoiceWaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceWaveformView.swift; sourceTree = "<group>"; };
+		B10026 /* InvoicePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoicePreviewView.swift; sourceTree = "<group>"; };
+		B10030 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B10031 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B10032 /* TalkInvoice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TalkInvoice.entitlements; sourceTree = "<group>"; };
+		B10040 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = SOURCE_ROOT; };
+		C10001 /* TalkInvoice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkInvoice.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D10001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		28A098962F4224A9003D90CF /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				B10040 /* Secrets.xcconfig */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		E10000 = {
+			isa = PBXGroup;
+			children = (
+				E10001 /* TalkInvoice */,
+				E10099 /* Products */,
+				28A098962F4224A9003D90CF /* Recovered References */,
+			);
+			sourceTree = "<group>";
+		};
+		E10001 /* TalkInvoice */ = {
+			isa = PBXGroup;
+			children = (
+				B10031 /* Info.plist */,
+				B10032 /* TalkInvoice.entitlements */,
+				B10030 /* Assets.xcassets */,
+				E10002 /* App */,
+				E10003 /* Models */,
+				E10004 /* Services */,
+				E10008 /* Utilities */,
+				E10009 /* ViewModels */,
+				E10010 /* Views */,
+			);
+			path = TalkInvoice;
+			sourceTree = "<group>";
+		};
+		E10002 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B10001 /* TalkInvoiceApp.swift */,
+				B10002 /* DependencyContainer.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		E10003 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B10003 /* Invoice.swift */,
+				B10004 /* InvoiceDraft.swift */,
+				B10005 /* MonthlyUsage.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E10004 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E10005 /* Interfaces */,
+				E10006 /* Implementations */,
+				E10007 /* Mock */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E10005 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				B10006 /* SpeechServiceProtocol.swift */,
+				B10007 /* AIServiceProtocol.swift */,
+				B10008 /* InvoiceServiceProtocol.swift */,
+				B10009 /* SubscriptionServiceProtocol.swift */,
+				B10010 /* UsageTrackerProtocol.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		E10006 /* Implementations */ = {
+			isa = PBXGroup;
+			children = (
+				B10011 /* SpeechManager.swift */,
+				B10012 /* GeminiAIService.swift */,
+				B10013 /* PDFInvoiceGenerator.swift */,
+				B10014 /* SubscriptionManager.swift */,
+				B10015 /* UsageTracker.swift */,
+			);
+			path = Implementations;
+			sourceTree = "<group>";
+		};
+		E10007 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				B10016 /* MockServices.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		E10008 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B10017 /* AppError.swift */,
+				B10018 /* Configuration.swift */,
+				B10019 /* Constants.swift */,
+				B10020 /* SubscriptionPlan.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E10009 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B10021 /* VoiceInputViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E10010 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E10011 /* Main */,
+				E10012 /* History */,
+				E10013 /* Paywall */,
+				E10014 /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E10011 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				B10022 /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		E10012 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				B10023 /* InvoiceHistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		E10013 /* Paywall */ = {
+			isa = PBXGroup;
+			children = (
+				B10024 /* PaywallView.swift */,
+			);
+			path = Paywall;
+			sourceTree = "<group>";
+		};
+		E10014 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B10025 /* VoiceWaveformView.swift */,
+				B10026 /* InvoicePreviewView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		E10099 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C10001 /* TalkInvoice.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F10001 /* TalkInvoice */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = G10003 /* Build configuration list for PBXNativeTarget "TalkInvoice" */;
+			buildPhases = (
+				F10002 /* Sources */,
+				D10001 /* Frameworks */,
+				F10003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TalkInvoice;
+			productName = TalkInvoice;
+			productReference = C10001 /* TalkInvoice.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F10000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					F10001 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = G10001 /* Build configuration list for PBXProject "TalkInvoice" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = ja;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				ja,
+				Base,
+			);
+			mainGroup = E10000;
+			productRefGroup = E10099 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F10001 /* TalkInvoice */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F10003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10030 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F10002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10001 /* TalkInvoiceApp.swift in Sources */,
+				A10002 /* DependencyContainer.swift in Sources */,
+				A10003 /* Invoice.swift in Sources */,
+				A10004 /* InvoiceDraft.swift in Sources */,
+				A10005 /* MonthlyUsage.swift in Sources */,
+				A10006 /* SpeechServiceProtocol.swift in Sources */,
+				A10007 /* AIServiceProtocol.swift in Sources */,
+				A10008 /* InvoiceServiceProtocol.swift in Sources */,
+				A10009 /* SubscriptionServiceProtocol.swift in Sources */,
+				A10010 /* UsageTrackerProtocol.swift in Sources */,
+				A10011 /* SpeechManager.swift in Sources */,
+				A10012 /* GeminiAIService.swift in Sources */,
+				A10013 /* PDFInvoiceGenerator.swift in Sources */,
+				A10014 /* SubscriptionManager.swift in Sources */,
+				A10015 /* UsageTracker.swift in Sources */,
+				A10016 /* MockServices.swift in Sources */,
+				A10017 /* AppError.swift in Sources */,
+				A10018 /* Configuration.swift in Sources */,
+				A10019 /* Constants.swift in Sources */,
+				A10020 /* SubscriptionPlan.swift in Sources */,
+				A10021 /* VoiceInputViewModel.swift in Sources */,
+				A10022 /* MainView.swift in Sources */,
+				A10023 /* InvoiceHistoryView.swift in Sources */,
+				A10024 /* PaywallView.swift in Sources */,
+				A10025 /* VoiceWaveformView.swift in Sources */,
+				A10026 /* InvoicePreviewView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		G10010 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		G10011 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		G10020 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B10040 /* Secrets.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TalkInvoice/TalkInvoice.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T9SWNDGYS9;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TalkInvoice/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TalkInvoice;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "請求書の音声入力にマイクを使用します";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "音声を文字に変換して請求書を作成します";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.calmluck7.talkinvoice;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		G10021 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B10040 /* Secrets.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TalkInvoice/TalkInvoice.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T9SWNDGYS9;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TalkInvoice/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TalkInvoice;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "請求書の音声入力にマイクを使用します";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "音声を文字に変換して請求書を作成します";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.calmluck7.talkinvoice;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		G10001 /* Build configuration list for PBXProject "TalkInvoice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				G10010 /* Debug */,
+				G10011 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		G10003 /* Build configuration list for PBXNativeTarget "TalkInvoice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				G10020 /* Debug */,
+				G10021 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F10000 /* Project object */;
+}

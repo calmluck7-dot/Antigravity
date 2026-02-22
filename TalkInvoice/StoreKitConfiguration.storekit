@@ -1,0 +1,62 @@
+{
+  "identifier" : "8A5C8462-3C8E-4E1B-9A3C-2B4D5E6F7A8B",
+  "type" : "com.apple.storekit.testing",
+  "version" : 3,
+  "subscriptionGroups" : [
+    {
+      "id" : "G001",
+      "localizations" : [
+        {
+          "description" : "TalkInvoice 月額プラン",
+          "displayName" : "TalkInvoice サブスクリプション",
+          "locale" : "ja"
+        }
+      ],
+      "name" : "TalkInvoice Subscriptions",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "500",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "S001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "月30枚まで請求書発行可能",
+              "displayName" : "Basic プラン",
+              "locale" : "ja"
+            }
+          ],
+          "productID" : "com.talkinvoice.basic.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Basic Monthly",
+          "subscriptionGroupID" : "G001",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "1000",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "S002",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "請求書発行枚数 無制限",
+              "displayName" : "Pro プラン",
+              "locale" : "ja"
+            }
+          ],
+          "productID" : "com.talkinvoice.pro.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Pro Monthly",
+          "subscriptionGroupID" : "G001",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ]
+}

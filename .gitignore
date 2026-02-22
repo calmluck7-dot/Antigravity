@@ -1,7 +1,23 @@
-node_modules
-dist
-.DS_Store
-.env
+# TalkInvoice
 
-# Ignore the output video from Git but not videos you import into src/.
-out
+# Xcode
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcworkspace/xcshareddata/
+DerivedData/
+build/
+
+# Secret config (APIキーを含む)
+Secrets.xcconfig
+
+# CocoaPods
+Pods/
+
+# macOS
+.DS_Store
+*.swp
+
+# Swift Package Manager
+.build/
+Package.resolved
+node_modules

@@ -74,19 +74,8 @@ export async function POST(req: Request) {
                 createdAt: new Date(),
             });
 
-            // 5. Generate Passwordless Login Link
-            const actionCodeSettings = {
-                url: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/login?companyId=${companyId}`,
-                handleCodeInApp: true,
-            };
-
-            const link = await adminAuth.generateSignInWithEmailLink(
-                purchaserEmail,
-                actionCodeSettings
-            );
-
-            // TODO: Send email with this link via SendGrid/AWS SES
-            console.log(`[Stripe Webhook] Generated Login Link for ${purchaserEmail}: ${link}`);
+            // Googleログインでアクセスするため、メールリンクの生成は不要
+            console.log(`[Stripe Webhook] 企業 "${companyName}" (${companyId}) を作成しました。管理者: ${purchaserEmail}`);
 
         } catch (error: any) {
             console.error("Error in webhook processing:", error);
